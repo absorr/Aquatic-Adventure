@@ -42,5 +42,10 @@ public class InteractionGeometry extends Geometry implements IInteractable {
                 break;
         }
     }
+
+    @Override
+    public void click() {
+        //TODO: stuff
+    }
     
 }
