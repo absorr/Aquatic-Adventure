@@ -32,10 +32,6 @@ import com.jme3.scene.shape.Sphere;
  */
 public class InteractionHandler extends SimpleApplication
 {
-  public InteractionHandler()
-  {
-      initKeys();
-  }
   public static void main(String[] args) {
     InteractionHandler app = new InteractionHandler();
     app.start();
@@ -73,9 +69,16 @@ public class InteractionHandler extends SimpleApplication
  private AnalogListener analogListener = new AnalogListener() {
     public void onAnalog(String name, float intensity, float tpf) {
       if (name.equals("Shoot")) {
+        
         // Reset results list.
         CollisionResults results = new CollisionResults();
-        // Convert screen click to 3d position
+        
+        if (results.getClosestCollision().getGeometry() instanceof IInteractable)
+        {
+            IInteractable obj = (IInteractable) results.getClosestCollision().getGeometry();
+            obj.click();
+        }
+        /*// Convert screen click to 3d position
         Vector2f click2d = inputManager.getCursorPosition();
         Vector3f click3d = cam.getWorldCoordinates(new Vector2f(click2d.x, click2d.y), 0f).clone();
         Vector3f dir = cam.getWorldCoordinates(new Vector2f(click2d.x, click2d.y), 1f).subtractLocal(click3d).normalizeLocal();
@@ -102,7 +105,7 @@ public class InteractionHandler extends SimpleApplication
           } else if (target.getName().equals("Blue Box")) {
             target.rotate(0, intensity, 0);
           }
-        }
+        }*/
       } // else if ...
     }
   };

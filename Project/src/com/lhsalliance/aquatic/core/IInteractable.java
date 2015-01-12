@@ -7,6 +7,7 @@ package com.lhsalliance.aquatic.core;
 public interface IInteractable 
 {
     String[] getInteractions();
-    void click();
     void interact(String type, IInteractable sender);
+
+    public void click();
 }
