@@ -3,7 +3,7 @@ package jme3test.helloworld;
 import com.jme3.app.SimpleApplication;
 import com.jme3.collision.CollisionResults;
 import com.jme3.font.BitmapFont;
-import com.jme3.font.BitmapText;
+import com.lhsalliance.aquatic.core.InteractionText;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
@@ -24,8 +24,6 @@ public class HelloAssets extends SimpleApplication {
  
     @Override
     public void simpleInitApp() {
-        inputManager.setCursorVisible(true);
-        flyCam.setEnabled(false);
  
         Spatial teapot = assetManager.loadModel("Models/Teapot/Teapot.obj");
         Material mat_default = new Material( 
@@ -45,7 +43,7 @@ public class HelloAssets extends SimpleApplication {
  
         guiNode.detachAllChildren();
         guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
-        BitmapText helloText = new BitmapText(guiFont, false);
+        InteractionText helloText = new InteractionText(guiFont, false, this);
         helloText.setSize(guiFont.getCharSet().getRenderedSize());
         helloText.setText("Hello World");
         helloText.setLocalTranslation(300, helloText.getLineHeight(), 0);
@@ -61,52 +59,53 @@ public class HelloAssets extends SimpleApplication {
         rootNode.addLight(sun);
         HelloAsset();
     }
-    public void HelloAsset(){     
-        Picture pic = new Picture("HUD Picture");
+    public Picture pic;
+    public BitmapFont myFont;
+    public InteractionText hudText;
+    
+    public void HelloAsset(){ 
+        
+        inputManager.setCursorVisible(true);
+        flyCam.setEnabled(false);
+        
+        pic = new Picture("HUD Picture");
         pic.setImage(assetManager, "sunset.jpg", true);
         pic.setWidth(settings.getWidth()/2);
         pic.setHeight(settings.getHeight()/2);
         pic.setPosition(settings.getWidth()/4, settings.getHeight()/4);
         guiNode.attachChild(pic);
-
-        BitmapText hudText;
-        BitmapFont myFont = assetManager.loadFont("Interface/Fonts/myfont.fnt");
-        hudText = new BitmapText(myFont, true);
+        
+        myFont = assetManager.loadFont("Interface/Fonts/myfont.fnt");
+        
+        hudText = new InteractionText(myFont, true, this);
         hudText.setSize(myFont.getCharSet().getRenderedSize());     
         hudText.setColor(ColorRGBA.Blue);                             
         hudText.setText("MAIN MENU");                               
         hudText.setLocalTranslation(250,300, 0); 
         guiNode.attachChild(hudText);
-        CollisionResults results = new CollisionResults();
-        Vector2f click2d = inputManager.getCursorPosition();
-        Vector3f click3d = cam.getWorldCoordinates(
-        new Vector2f(click2d.x, click2d.y), 0f).clone();
-        Vector3f dir = cam.getWorldCoordinates(
-        new Vector2f(click2d.x, click2d.y), 1f).subtractLocal(click3d).normalizeLocal();
-        Ray ray = new Ray(click3d, dir);    
         
-        hudText = new BitmapText(myFont, true);
+        hudText = new InteractionText(myFont, true, this);
         hudText.setSize(myFont.getCharSet().getRenderedSize());     
         hudText.setColor(ColorRGBA.Blue);                             
         hudText.setText("SETTINGS");                               
         hudText.setLocalTranslation(250,250, 0); 
         guiNode.attachChild(hudText); 
         
-        hudText = new BitmapText(myFont, true);
+        hudText = new InteractionText(myFont, true, this);
         hudText.setSize(myFont.getCharSet().getRenderedSize());     
         hudText.setColor(ColorRGBA.Blue);                             
         hudText.setText("SAVE");                               
         hudText.setLocalTranslation(250,200, 0); 
         guiNode.attachChild(hudText);
         
-        hudText = new BitmapText(myFont, true);
+        hudText = new InteractionText(myFont, true, this);
         hudText.setSize(myFont.getCharSet().getRenderedSize());     
         hudText.setColor(ColorRGBA.Blue);                   
         hudText.setText("RETURN TO GAME");                               
         hudText.setLocalTranslation(250,350, 0); 
         guiNode.attachChild(hudText);
         
-        hudText = new BitmapText(myFont, true);
+        hudText = new InteractionText(myFont, true, this);
         hudText.setSize(myFont.getCharSet().getRenderedSize());     
         hudText.setColor(ColorRGBA.Blue);                   
         hudText.setText("PAUSE MENU");                               
