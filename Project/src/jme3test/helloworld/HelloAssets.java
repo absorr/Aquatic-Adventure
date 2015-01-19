@@ -14,6 +14,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.ui.Picture;
+import com.lhsalliance.aquatic.core.InteractionText;
 
 public class HelloAssets extends SimpleApplication {
  
@@ -45,7 +46,7 @@ public class HelloAssets extends SimpleApplication {
  
         guiNode.detachAllChildren();
         guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
-        BitmapText helloText = new BitmapText(guiFont, false);
+        InteractionText helloText = new InteractionText(guiFont, false);
         helloText.setSize(guiFont.getCharSet().getRenderedSize());
         helloText.setText("Hello World");
         helloText.setLocalTranslation(300, helloText.getLineHeight(), 0);
