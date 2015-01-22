@@ -140,6 +140,15 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         initKeys(); // load my custom keybinding
         inputManager.setCursorVisible(true);
         flyCam.setEnabled(false);
+         NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager,
+                                                          inputManager,
+                                                          audioRenderer,
+                                                          guiViewPort);
+        nifty = niftyDisplay.getNifty();
+        nifty.fromXml("Interface/Screen.xml", "start", this);
+ 
+        
+        guiViewPort.addProcessor(niftyDisplay);
     }
 
     @Override
@@ -171,6 +180,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
       inputManager.addMapping("Left",   new KeyTrigger(KeyInput.KEY_J));
       inputManager.addMapping("Right",  new KeyTrigger(KeyInput.KEY_K));
       inputManager.addMapping("Walk", new KeyTrigger(KeyInput.KEY_SPACE));
+      inputManager.addMapping("Tab", new KeyTrigger(KeyInput.KEY_TAB));
       // Add the names to the action listener.
       inputManager.addListener(actionListener,"Pause", "Walk");
       inputManager.addListener(analogListener,"Left", "Right", "Rotate");
@@ -204,6 +214,9 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
           if (name.equals("Left")) {
             Vector3f v = player.getLocalTranslation();
             player.setLocalTranslation(v.x - value*speed, v.y, v.z);
+          }
+          if (name.equals("Tab")){
+              openBiomeScreen();
           }
         } else {
           System.out.println("Press P to unpause.");
@@ -249,7 +262,19 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public void onStartScreen() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+ public void openBiomeScreen() {
 
+    nifty.addXml("Interface/Screen.xml");
+
+    nifty.gotoScreen("biome");
+    
+}
+public void openAnimalScreen() {
+
+    nifty.addXml("Interface/Screen.xml");
+
+    nifty.gotoScreen("animal");
+}
     @Override
     public void onEndScreen() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
