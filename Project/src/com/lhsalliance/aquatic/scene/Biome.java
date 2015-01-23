@@ -11,9 +11,11 @@ package com.lhsalliance.aquatic.scene;
 public class Biome 
 {
     public String displayName;
+    public String previewNode;
     
-    public Biome(String name)
+    public Biome(String name, String menuNodePath)
     {
         this.displayName = name;
+        this.previewNode = menuNodePath;
     }
 }

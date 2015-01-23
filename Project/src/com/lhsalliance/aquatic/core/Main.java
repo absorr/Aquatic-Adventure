@@ -154,17 +154,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         //TODO: add render code
     }
     
-    public Spatial loadModel(Model m)
-    {
-        /** Load a model. Uses model and texture from jme3-test-data library! */ 
-        Spatial teapot = Main.game.assetManager.loadModel(m.pathModel);
-        Material defaultMat = new Material( assetManager, m.pathMaterial);
-        teapot.setMaterial(defaultMat);
-        rootNode.attachChild(teapot);
-        
-        return teapot;
-    }
-    
     /** Custom Keybinding: Map named actions to inputs. */
     private void initKeys() {
       // You can map one or several inputs to one named action
@@ -246,19 +235,19 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public void onStartScreen() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
- public void openBiomeScreen() {
+    public void openBiomeScreen() {
 
-    nifty.addXml("Interface/Screen.xml");
+       nifty.addXml("Interface/Screen.xml");
 
-    nifty.gotoScreen("biome");
-    
-}
-public void openAnimalScreen() {
+       nifty.gotoScreen("biome");
 
-    nifty.addXml("Interface/Screen.xml");
+    }
+    public void openAnimalScreen() {
 
-    nifty.gotoScreen("animal");
-}
+       nifty.addXml("Interface/Screen.xml");
+
+       nifty.gotoScreen("animal");
+    }
     @Override
     public void onEndScreen() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
