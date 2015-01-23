@@ -139,16 +139,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         
         initKeys(); // load my custom keybinding
         inputManager.setCursorVisible(true);
-        flyCam.setEnabled(false);
-         NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager,
-                                                          inputManager,
-                                                          audioRenderer,
-                                                          guiViewPort);
-        nifty = niftyDisplay.getNifty();
-        nifty.fromXml("Interface/Screen.xml", "start", this);
- 
-        
-        guiViewPort.addProcessor(niftyDisplay);
+        flyCam.setEnabled(true);
+        menuMain();
     }
 
     @Override
@@ -179,8 +171,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
       inputManager.addMapping("Pause",  new KeyTrigger(KeyInput.KEY_P));
       inputManager.addMapping("Left",   new KeyTrigger(KeyInput.KEY_J));
       inputManager.addMapping("Right",  new KeyTrigger(KeyInput.KEY_K));
-      inputManager.addMapping("Walk", new KeyTrigger(KeyInput.KEY_SPACE));
-      inputManager.addMapping("Tab", new KeyTrigger(KeyInput.KEY_TAB));
+      inputManager.addMapping("Space", new KeyTrigger(KeyInput.KEY_SPACE));
       // Add the names to the action listener.
       inputManager.addListener(actionListener,"Pause", "Walk");
       inputManager.addListener(analogListener,"Left", "Right", "Rotate");
@@ -192,12 +183,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         if (name.equals("Pause") && !keyPressed) {
           isRunning = !isRunning;
         }
-        else if (name.equals("Walk") && !keyPressed) {
-          if (!channel.getAnimationName().equals("Walk")) {
-            channel.setAnim("Walk", 0.50f);
-            channel.setLoopMode(LoopMode.Loop);
-          }
-        }
+        
       }
     };
 
@@ -215,7 +201,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
             Vector3f v = player.getLocalTranslation();
             player.setLocalTranslation(v.x - value*speed, v.y, v.z);
           }
-          if (name.equals("Tab")){
+          if (name.equals("Space")){
               openBiomeScreen();
           }
         } else {
@@ -248,9 +234,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                                                           guiViewPort);
         nifty = niftyDisplay.getNifty();
         nifty.fromXml("Interface/Screen.xml", "start", this);
- 
         
-        guiViewPort.addProcessor(niftyDisplay);
     }
 
     @Override
