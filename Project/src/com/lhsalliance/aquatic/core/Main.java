@@ -19,6 +19,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.RenderManager;
+import com.jme3.renderer.ViewPort;
 import com.jme3.scene.CameraNode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
@@ -26,6 +27,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.control.CameraControl.ControlDirection;
 import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
+import com.jme3.ui.Picture;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
@@ -49,6 +51,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     private AnimControl control;
     private boolean isRunning = true;
     public CameraNode camNode;
+    public ViewPort bgvp;
+    public Picture bgpic;
     
     public static void main(String[] args) {
         Main app = new Main();
@@ -141,12 +145,24 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         inputManager.setCursorVisible(true);
         flyCam.setEnabled(true);
         menuMain();
+        
+        bgpic = new Picture("Background Picture");
+        bgpic.setImage(assetManager, "coral.png", false);
+        bgpic.setWidth(settings.getWidth());
+        bgpic.setHeight(settings.getHeight());
+        bgpic.setPosition(0,0);
+        bgpic.updateGeometricState();
+        
+        bgvp = renderManager.createPreView("background", cam);
+        bgvp.setClearFlags(true, true, true);
+        bgvp.attachScene(bgpic);
+        viewPort.setClearFlags(false, true, true);
     }
 
     @Override
     public void simpleUpdate(float tpf) {
-        // make the player rotate:
-        //teapot.rotate(0, 2*tpf, 0); 
+        bgpic.updateLogicalState(1);
+        bgpic.updateGeometricState();
     }
 
     @Override
@@ -261,8 +277,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     {
         //Unload main menu
         //nifty.exit();
-        
-        //System.out.println("deeeeeeeebuggery!!!!");
         
         /** Load a Node from a .j3o file */
         BinaryImporter importer = BinaryImporter.getInstance();
