@@ -64,9 +64,10 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         cfg.setFullscreen(false); 
         cfg.setSamples(2);    // anti-aliasing
         cfg.setTitle("Aquatic Adventure"); // branding: window name
+        cfg.setSettingsDialogImage("Interface/dialog.png");
         try {
           // Branding: window icon
-          cfg.setIcons(new BufferedImage[]{ImageIO.read(new File("assets/Interface/icon.gif"))});
+          cfg.setIcons(new BufferedImage[]{ImageIO.read(new File("assets/Interface/icon.png"))});
         } catch (IOException ex) {
           Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Icon missing.", ex);
         }
