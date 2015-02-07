@@ -28,6 +28,9 @@ import com.jme3.scene.control.CameraControl.ControlDirection;
 import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
 import com.jme3.ui.Picture;
+import com.lhsalliance.aquatic.entities.Animal;
+import com.lhsalliance.aquatic.entities.AnimalRegistry;
+import com.lhsalliance.aquatic.entities.Model;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
@@ -45,7 +48,7 @@ import javax.imageio.ImageIO;
 public class Main extends SimpleApplication implements AnimEventListener, ScreenController {
 
     public static Main game;
-    protected Node player;
+    public Animal player;
     protected Spatial teapot;
     private AnimChannel channel;
     private AnimControl control;
@@ -82,73 +85,19 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
 
     @Override
     public void simpleInitApp() {
+        AnimalRegistry.addAnimal(new Animal("Clownfish", 
+                new Model("assets/Models/clownfish/clownfish.j3o"),
+                10));
+        
         //menuMain();
         btn_Start();
- 
-//        teapot = assetManager.loadModel("Models/Teapot/Teapot.obj");
-//        Material mat_default = new Material( 
-//            assetManager, "Common/MatDefs/Misc/ShowNormals.j3md");
-//        teapot.setMaterial(mat_default);
-//        rootNode.attachChild(teapot);
-// 
-//        // Create a wall with a simple texture from test_data
-//        Box box = new Box(2.5f,2.5f,1.0f);
-//        Spatial wall = new Geometry("Box", box );
-//        Material mat_brick = new Material( 
-//            assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-//        mat_brick.setTexture("ColorMap", 
-//            assetManager.loadTexture("Textures/Terrain/BrickWall/BrickWall.jpg"));
-//        wall.setMaterial(mat_brick);
-//        wall.setLocalTranslation(2.0f,-2.5f,0.0f);
-//        rootNode.attachChild(wall);
-// 
-//        // Display a line of text with a default font
-//        guiNode.detachAllChildren();
-//        guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
-//        BitmapText helloText = new BitmapText(guiFont, false);
-//        helloText.setSize(guiFont.getCharSet().getRenderedSize());
-//        helloText.setText("Hello World");
-//        helloText.setLocalTranslation(300, helloText.getLineHeight(), 0);
-//        guiNode.attachChild(helloText);
-// 
-//        // Load a model from test_data (OgreXML + material + texture)
-//        Spatial ninja = assetManager.loadModel("Models/Ninja/Ninja.mesh.xml");
-//        ninja.scale(0.05f, 0.05f, 0.05f);
-//        ninja.rotate(0.0f, -3.0f, 0.0f);
-//        ninja.setLocalTranslation(0.0f, -5.0f, -2.0f);
-//        rootNode.attachChild(ninja);
-//        // You must add a light to make the model visible
-//        DirectionalLight sun = new DirectionalLight();
-//        sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
-//        rootNode.addLight(sun);
-//        
-//        //Box of rotations
-//        /*Box b = new Box(1, 1, 1);
-//        player = new Geometry("blue cube", b);
-//        Material mat = new Material(assetManager,
-//          "Common/MatDefs/Misc/Unshaded.j3md");
-//        mat.setColor("Color", ColorRGBA.Pink);
-//        player.setMaterial(mat);
-//        player.setLocalTranslation(0.0f, 7.0f, -2.0f);
-//        rootNode.attachChild(player);*/
-//        
-//        //Person of animations
-//        player = (Node) assetManager.loadModel("Models/Oto/Oto.mesh.xml");
-//        player.setLocalScale(0.5f);
-//        player.setLocalTranslation(0.0f, 7.0f, -2.0f);
-//        rootNode.attachChild(player);
-//        control = player.getControl(AnimControl.class);
-//        control.addListener(this);
-//        channel = control.createChannel();
-//        channel.setAnim("stand");
         
         initKeys(); // load my custom keybinding
         inputManager.setCursorVisible(true);
         flyCam.setEnabled(true);
-        menuMain();
         
         bgpic = new Picture("Background Picture");
-        bgpic.setImage(assetManager, "coral.png", false);
+        bgpic.setImage(assetManager, "Interface/newbg1.png", false);
         bgpic.setWidth(settings.getWidth());
         bgpic.setHeight(settings.getHeight());
         bgpic.setPosition(0,0);
@@ -197,15 +146,15 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
       public void onAnalog(String name, float value, float tpf) {
         if (isRunning) {
           if (name.equals("Rotate")) {
-            player.rotate(0, value*speed, 0);
+            player.model.node.rotate(0, value*speed, 0);
           }
           if (name.equals("Right")) {
-            Vector3f v = player.getLocalTranslation();
-            player.setLocalTranslation(v.x + value*speed, v.y, v.z);
+            Vector3f v = player.model.node.getLocalTranslation();
+            player.model.node.setLocalTranslation(v.x + value*speed, v.y, v.z);
           }
           if (name.equals("Left")) {
-            Vector3f v = player.getLocalTranslation();
-            player.setLocalTranslation(v.x - value*speed, v.y, v.z);
+            Vector3f v = player.model.node.getLocalTranslation();
+            player.model.node.setLocalTranslation(v.x - value*speed, v.y, v.z);
           }
           if (name.equals("Space")){
               openBiomeScreen();
@@ -279,18 +228,9 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         //Unload main menu
         //nifty.exit();
         
-        /** Load a Node from a .j3o file */
-        BinaryImporter importer = BinaryImporter.getInstance();
-        importer.setAssetManager(assetManager);
-        File file = new File("assets/Models/clownfish/clownfish.j3o");
-        try {
-          player = (Node)importer.load(file);
-          player.setName("loaded node");
-          rootNode.attachChild(player);
-        } catch (IOException ex) {
-          Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "No saved node loaded.", ex);
-          player = null;
-        } 
+        player = AnimalRegistry.getAnimal("Clownfish");
+        player.model.loadModel();
+        
         // You must add a light to make the model visible
         DirectionalLight sun = new DirectionalLight();
         sun.setDirection(new Vector3f(-0.8f, -0.7f, -1.0f));
@@ -301,10 +241,10 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         //This mode means that camera copies the movements of the target:
         camNode.setControlDir(ControlDirection.SpatialToCamera);
         //Attach the camNode to the target:
-        player.attachChild(camNode);
+        player.model.node.attachChild(camNode);
         //Move camNode, e.g. behind and above the target:
         camNode.setLocalTranslation(new Vector3f(0, 70, -20));
         //Rotate the camNode to look at the target:
-        camNode.lookAt(player.getLocalTranslation(), Vector3f.UNIT_Y);
+        camNode.lookAt(player.model.node.getLocalTranslation(), Vector3f.UNIT_Y);
     }
 }

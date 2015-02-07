@@ -4,6 +4,10 @@
  */
 package com.lhsalliance.aquatic.entities;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  *
  * @author Will
@@ -15,25 +19,28 @@ public class Animal
         CHILD, TEEN, ADULT
     }
     
-    public static enum AnimalType
-    {
-        MAMMAL, FISH
-    }
+    public AnimalAge age;
+    public String displayName;
+    public Model model;
+    public int maxHealth;
+    public int health;
+    public HashSet<AI> ai = new HashSet<AI>();
     
-    private AnimalAge age;
-    private AnimalType type;
-    private String displayName;
-    private Model model;
+    protected static HashSet<Animal> animals = new HashSet<Animal>() {};
     
-    private static Animal animals[];
-    
-    public Animal(String name, AnimalType animalType, Model animalModel)
+    public Animal(String name, Model animalModel, int animalHealth)
     {
         this.displayName = name;
         this.age = AnimalAge.CHILD;
-        this.type = animalType;
         this.model = animalModel;
+        this.maxHealth = animalHealth;
+        this.health = animalHealth;
         
-        animals[animals.length] = this;
+        animals.add(this);
+    }
+    
+    public static Iterator getAnimals()
+    {
+        return animals.iterator();
     }
 }
