@@ -358,16 +358,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         player = AnimalRegistry.getAnimal("Clownfish");
         player.model.loadModel();
         
-        //Add an anemone
-        Anemone anm = new Anemone();
-        anm.model.node.setLocalTranslation(-30f, -6f, 10f);
-        
-        //Add a shark
-        Animal shark = AnimalRegistry.getAnimal("Great White Shark");
-        shark.model.loadModel();
-        shark.ai.add(new KillAI(25));
-        shark.model.node.setLocalTranslation(30f, 0f, 30f);
-        
         // You must add a light to make the model visible
         DirectionalLight sun = new DirectionalLight();
         sun.setDirection(new Vector3f(-0.8f, -0.7f, 2.0f));
