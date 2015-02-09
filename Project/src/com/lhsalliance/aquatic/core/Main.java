@@ -391,7 +391,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         isInGame = true;
     }
     
-    //age level control methods
+       //age level control methods
+    
     public void mating()
     {
         //TODO code mating here
@@ -401,4 +402,5 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         hide = true;
         HandlerPlayer.hideCount += 1;
     }
-}
+    }
+

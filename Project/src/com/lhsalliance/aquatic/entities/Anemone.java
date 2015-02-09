@@ -15,6 +15,7 @@ import com.lhsalliance.aquatic.core.*;
 public class Anemone extends Updatable 
 {
     public Model model;
+    public boolean playHide = false;
     
     public Anemone()
     {
@@ -42,12 +43,16 @@ public class Anemone extends Updatable
         {
             Main.game.playerHandler.increaseHunger(2);
         }
-        if (dist < 5)
+        if (dist < 5 && !playHide)
         {
             Main.game.hiding();
+            playHide = true;
         }
         else
+        {
             Main.game.hide = false;
+            playHide = false;
+        }
     }
     
 }

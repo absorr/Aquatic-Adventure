@@ -17,6 +17,7 @@ public class HandlerPlayer
     public static int hideCount = 0;
     public static int eatCount = 0;
     
+    
    
     
     public HandlerPlayer()
@@ -94,7 +95,8 @@ public class HandlerPlayer
         {
             Main.game.nifty.gotoScreen("win");
         }
-    }
+    } 
+    
     
     
 }
