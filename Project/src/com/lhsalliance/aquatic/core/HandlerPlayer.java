@@ -10,10 +10,14 @@ package com.lhsalliance.aquatic.core;
  */
 public class HandlerPlayer 
 {
+    //define integers
     public int hunger;
     public int appetite;
     public int level = 1;
-    public boolean mate = false;
+    public static int hideCount = 0;
+    public static int eatCount = 0;
+    
+   
     
     public HandlerPlayer()
     {
@@ -73,7 +77,7 @@ public class HandlerPlayer
             System.out.println("Hunger increased to " + hunger);
         }
     }
-    public void levelUp(int a)
+    public void levelUp()
     {
         level += 1;
         appetite += 3;
@@ -84,7 +88,7 @@ public class HandlerPlayer
         }
         if (level == 3)
         {
-            mate = true;
+            Main.game.mate = true;
         }
         if (level > 3)
         {
@@ -92,8 +96,5 @@ public class HandlerPlayer
         }
     }
     
-    public void mating()
-    {
-        //TODO code mating here
-    }
+    
 }

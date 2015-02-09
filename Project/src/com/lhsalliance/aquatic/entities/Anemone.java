@@ -6,7 +6,7 @@ package com.lhsalliance.aquatic.entities;
 
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
-import com.lhsalliance.aquatic.core.Main;
+import com.lhsalliance.aquatic.core.*;
 
 /**
  *
@@ -42,6 +42,12 @@ public class Anemone extends Updatable
         {
             Main.game.playerHandler.increaseHunger(2);
         }
+        if (dist < 5)
+        {
+            Main.game.hiding();
+        }
+        else
+            Main.game.hide = false;
     }
     
 }

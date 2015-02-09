@@ -61,6 +61,10 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public Animal player;
     public HandlerPlayer playerHandler = new HandlerPlayer();
     
+     //define age control bools
+    public boolean mate = false;
+    public boolean hide = false;
+    
     public boolean isRunning=true;
     public boolean isRight=false;
     public boolean isLeft=false;
@@ -385,5 +389,16 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         WorldGen.generate();
         
         isInGame = true;
+    }
+    
+    //age level control methods
+    public void mating()
+    {
+        //TODO code mating here
+    }
+    public void hiding()
+    {
+        hide = true;
+        HandlerPlayer.hideCount += 1;
     }
 }
