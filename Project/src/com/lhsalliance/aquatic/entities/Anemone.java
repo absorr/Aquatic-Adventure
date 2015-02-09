@@ -40,7 +40,7 @@ public class Anemone extends Updatable
         
         if (dist < 5 && Main.game.player.displayName == "Clownfish" && Main.game.ticks % 80 == 0)
         {
-            Main.game.increaseHunger(2);
+            Main.game.playerHandler.increaseHunger(2);
         }
     }
     

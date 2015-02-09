@@ -36,6 +36,9 @@ import com.lhsalliance.aquatic.entities.AnimalRegistry;
 import com.lhsalliance.aquatic.entities.KillAI;
 import com.lhsalliance.aquatic.entities.Model;
 import com.lhsalliance.aquatic.entities.Updatable;
+import com.lhsalliance.aquatic.scene.Biome;
+import com.lhsalliance.aquatic.scene.BiomeRegistry;
+import com.lhsalliance.aquatic.scene.WorldGen;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
@@ -54,18 +57,23 @@ import javax.imageio.ImageIO;
 public class Main extends SimpleApplication implements AnimEventListener, ScreenController {
 
     public static Main game;
+    
     public Animal player;
-    public int hunger;
-    public int appetite;
-    boolean isRunning=true;
-    boolean isRight=false;
-    boolean isLeft=false;
-    boolean isUp=false;
-    boolean isDown=false;
-    protected Spatial teapot;
+    public HandlerPlayer playerHandler = new HandlerPlayer();
+    
+    public boolean isRunning=true;
+    public boolean isRight=false;
+    public boolean isLeft=false;
+    public boolean isUp=false;
+    public boolean isDown=false;
+    public boolean isInGame = false;
+    
     private AnimChannel channel;
     private AnimControl control;
-    private boolean isInGame = false;
+    
+    public long seed = 1209345223;
+    public Biome biome = BiomeRegistry.RIEF;
+    
     public CameraNode camNode;
     public Node movementNode = new Node();
     public ViewPort bgvp;
@@ -107,6 +115,30 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         AnimalRegistry.addAnimal(new Animal("Great White Shark", 
                 new Model("assets/Models/GreatWhiteShark/GreatWhiteShark.j3o"),
                 50));
+        AnimalRegistry.addAnimal(new Animal("Parrot Fish", 
+                new Model("assets/Models/ParrotFish/ParrotFish.j3o"),
+                50));
+        AnimalRegistry.addAnimal(new Animal("Angelfish", 
+                new Model("assets/Models/AngelFishRigged/AngelFishRigged.j3o"),
+                50));
+        AnimalRegistry.addAnimal(new Animal("Tiger Shark", 
+                new Model("assets/Models/tiger shark/tiger shark.j3o"),
+                50));
+        AnimalRegistry.addAnimal(new Animal("Hammerhead Shark", 
+                new Model("assets/Models/hammerhead shark/hammerhead shark.j3o"),
+                50));
+        AnimalRegistry.addAnimal(new Animal("Octopus", 
+                new Model("assets/Models/octopus/octopus.j3o"),
+                50));
+        AnimalRegistry.addAnimal(new Animal("Sea Turtle", 
+                new Model("assets/Models/Sea turtle/Sea turtle.j3o"),
+                50));
+        AnimalRegistry.addAnimal(new Animal("Moray Eel", 
+                new Model("assets/Models/Moray eel/Moray eel.j3o"),
+                50));
+        AnimalRegistry.addAnimal(new Animal("Manta Ray", 
+                new Model("assets/Models/MantaRay/MantaRay.j3o"),
+                50));
         
         //menuMain();
         btn_Start();
@@ -147,26 +179,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
             {
                 Updatable obj = (Updatable) itr.next();
                 obj.onUpdate(tpf);
-            }
-
-            if(player.getHealth() <= 0) //Death
-            {
-                this.stop();
-            }
-
-            if(hunger <= 0 && ticks % 300 == 0) //Starve
-            {
-                player.damage(1, player);
-            }
-
-            if(ticks % 1000 == 0 && hunger > 0) //Decrease hunger over time
-            {
-                decreaseHunger(1);
-            }
-            
-            if(hunger > appetite - 3)
-            {
-                player.addHealth(2);
             }
         }
         
@@ -341,8 +353,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         //Make the player
         player = AnimalRegistry.getAnimal("Clownfish");
         player.model.loadModel();
-        hunger = 10;
-        appetite = 12;
         
         //Add an anemone
         Anemone anm = new Anemone();
@@ -372,33 +382,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         //Rotate the camNode to look at the target:
         camNode.lookAt(player.model.node.getLocalTranslation(), Vector3f.UNIT_Y);
         
+        WorldGen.generate();
+        
         isInGame = true;
-    }
-    
-    public void decreaseHunger(int amt)
-    {
-        if(hunger > 0)
-        {
-            hunger -= amt;
-            
-            //TODO Update HUD
-            
-            System.out.println("Hunger decreased to " + hunger);
-        }
-    }
-    
-    public void increaseHunger(int amt)
-    {
-        if(hunger < appetite)
-        {
-            hunger += amt;
-            
-            if(hunger > appetite)
-                hunger = appetite;
-            
-            //TODO; Update HUD
-            
-            System.out.println("Hunger increased to " + hunger);
-        }
     }
 }

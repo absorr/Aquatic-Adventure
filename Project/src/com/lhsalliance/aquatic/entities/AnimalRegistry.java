@@ -25,8 +25,8 @@ public class AnimalRegistry
         return animals.get(name);
     }
     
-    public static String[] getAnimalList()
+    public static Object[] getAnimalList()
     {
-        return (String[]) animals.keySet().toArray();
+        return animals.keySet().toArray();
     }
 }

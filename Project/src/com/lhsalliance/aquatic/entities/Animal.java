@@ -40,6 +40,17 @@ public class Animal
         animals.add(this);
     }
     
+    public Animal(Animal copy)
+    {
+        this.displayName = copy.displayName;
+        this.age = AnimalAge.CHILD;
+        this.model = new Model(copy.model.pathModel);
+        this.maxHealth = copy.maxHealth;
+        this.health = copy.maxHealth;
+        
+        animals.add(this);
+    }
+    
     public static Iterator getAnimals()
     {
         return animals.iterator();
