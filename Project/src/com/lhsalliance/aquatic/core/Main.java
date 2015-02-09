@@ -52,7 +52,7 @@ import javax.imageio.ImageIO;
 
 /**
  * test
- * @author normenhansen
+ * @author LHSInteralliance
  */
 public class Main extends SimpleApplication implements AnimEventListener, ScreenController {
 
@@ -197,9 +197,9 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     /** Custom Keybinding: Map named actions to inputs. */
     private void initKeys() {
       // You can map one or several inputs to one named action
-      inputManager.addMapping("Pause",  new KeyTrigger(KeyInput.KEY_ESCAPE));
-      inputManager.addMapping("Space", new KeyTrigger(KeyInput.KEY_SPACE));
-      inputManager.addMapping("Left",   new KeyTrigger(KeyInput.KEY_D));
+    inputManager.addMapping("Pause",  new KeyTrigger(KeyInput.KEY_ESCAPE));
+    inputManager.addMapping("Space", new KeyTrigger(KeyInput.KEY_SPACE));
+    inputManager.addMapping("Left",   new KeyTrigger(KeyInput.KEY_D));
     inputManager.addMapping("Right",  new KeyTrigger(KeyInput.KEY_A));
     inputManager.addMapping("Up",     new KeyTrigger(KeyInput.KEY_W));
     inputManager.addMapping("Down",   new KeyTrigger(KeyInput.KEY_S));
@@ -213,6 +213,12 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
       public void onAction(String name, boolean keyPressed, float tpf) {
         if (name.equals("Pause") && !keyPressed) {
           isRunning = !isRunning;
+        }
+        else if (name.equals("Right") && !keyPressed) {
+            isRight = false;
+        }
+        else if (name.equals("Left") && !keyPressed) {
+            isLeft = false;
         }
         
       }
@@ -396,6 +402,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public void mating()
     {
         //TODO code mating here
+        //getin jiggy wit da fishy
     }
     public void hiding()
     {
