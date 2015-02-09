@@ -61,12 +61,12 @@ public class KillAI implements AI
                     System.out.println("OM NOM");
                 }
             }
-            else if (dist < this.radius)
-            {
-                node.setLocalRotation(new Quaternion().fromAngleAxis(angle, new Vector3f(0,1,0)));
-                Vector3f forward = node.getLocalRotation().getRotationColumn(2);
-                node.move(forward.divide(4));
-            }
+        }
+        else if (!Main.game.hide && dist < this.radius)
+        {
+            node.setLocalRotation(new Quaternion().fromAngleAxis(angle, new Vector3f(0,1,0)));
+            Vector3f forward = node.getLocalRotation().getRotationColumn(2);
+            node.move(forward.divide(4));
         }
     }
     

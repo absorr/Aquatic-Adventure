@@ -26,13 +26,14 @@ public class HandlerPlayer
         appetite = 12;
     }
     
-    public void update(int tpf)
+    public void update(float tpf)
     {
         if (Main.game.isInGame)
         {
             if(Main.game.player.getHealth() <= 0) //Death
             {
                 Main.game.nifty.gotoScreen("fin");
+                System.out.println("fin");
             }
 
             if(hunger <= 0 && Main.game.ticks % 300 == 0) //Starve

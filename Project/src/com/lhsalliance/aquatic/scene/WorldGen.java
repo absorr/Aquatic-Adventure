@@ -10,6 +10,7 @@ import com.lhsalliance.aquatic.core.Main;
 import com.lhsalliance.aquatic.entities.Anemone;
 import com.lhsalliance.aquatic.entities.Animal;
 import com.lhsalliance.aquatic.entities.AnimalRegistry;
+import com.lhsalliance.aquatic.entities.Hidable;
 import com.lhsalliance.aquatic.entities.KillAI;
 import com.lhsalliance.aquatic.entities.Model;
 import java.util.Random;
@@ -111,7 +112,8 @@ public class WorldGen
                 
                 if (type >= 0 && type < 5)
                 {
-                    Model model = new Model("assets/Models/branching coral/branching coral.j3o");
+                    Hidable hide = new Hidable(new Model("assets/Models/branching coral/branching coral.j3o"));
+                    Model model = hide.model;
                     model.loadModel();
                     model.node.setLocalTranslation(x, 0, z);
                     float rotation = rand.nextInt(360)*FastMath.RAD_TO_DEG;

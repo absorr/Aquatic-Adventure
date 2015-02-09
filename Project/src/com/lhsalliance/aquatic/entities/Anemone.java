@@ -12,15 +12,13 @@ import com.lhsalliance.aquatic.core.*;
  *
  * @author Will
  */
-public class Anemone extends Updatable 
+public class Anemone extends Hidable 
 {
-    public Model model;
     
     
     public Anemone()
     {
-        super();
-        model = new Model("assets/Models/anemone/anemone.j3o");
+        super(new Model("assets/Models/anemone/anemone.j3o"));
         model.loadModel();
         model.node.scale(3f);
     }
@@ -42,6 +40,17 @@ public class Anemone extends Updatable
         if (dist < 5 && Main.game.player.displayName == "Clownfish" && Main.game.ticks % 80 == 0)
         {
             Main.game.playerHandler.increaseHunger(2);
+        }
+        
+        if (dist < 5 && !playHide)
+        {
+            Main.game.hiding();
+            playHide = true;
+        }
+        else
+        {
+            Main.game.hide = false;
+            playHide = false;
         }
         
     }

@@ -186,6 +186,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
             }
         }
         
+        playerHandler.update(tpf);
+        
         ticks++;
     }
 
@@ -393,5 +395,5 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         HandlerPlayer.hideCount += 1;
     }
     
-    }
+}
 
