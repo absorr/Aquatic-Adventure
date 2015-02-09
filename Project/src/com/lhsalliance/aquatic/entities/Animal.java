@@ -43,4 +43,15 @@ public class Animal
     {
         return animals.iterator();
     }
+    
+    public void update(float tpf)
+    {
+        Iterator itr = ai.iterator();
+        
+        while (itr.hasNext())
+        {
+            AI a = (AI) itr.next();
+            a.onUpdate(tpf, this);
+        }
+    }
 }
