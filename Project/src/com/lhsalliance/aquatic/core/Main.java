@@ -402,5 +402,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         hide = true;
         HandlerPlayer.hideCount += 1;
     }
+    
     }
 
