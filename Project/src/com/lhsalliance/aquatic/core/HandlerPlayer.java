@@ -25,7 +25,7 @@ public class HandlerPlayer
         {
             if(Main.game.player.getHealth() <= 0) //Death
             {
-                Main.game.stop();
+                Main.game.nifty.gotoScreen("fin");
             }
 
             if(hunger <= 0 && Main.game.ticks % 300 == 0) //Starve

@@ -299,8 +299,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
       // unused
     }
     
-    private NiftyJmeDisplay niftyDisplay;
-    private Nifty nifty;
+    public NiftyJmeDisplay niftyDisplay;
+    public Nifty nifty;
     
     public void menuMain()
     {
