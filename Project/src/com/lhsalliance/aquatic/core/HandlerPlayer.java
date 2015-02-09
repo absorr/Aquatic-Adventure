@@ -12,6 +12,8 @@ public class HandlerPlayer
 {
     public int hunger;
     public int appetite;
+    public int level = 1;
+    public boolean mate = false;
     
     public HandlerPlayer()
     {
@@ -70,5 +72,28 @@ public class HandlerPlayer
             
             System.out.println("Hunger increased to " + hunger);
         }
+    }
+    public void levelUp(int a)
+    {
+        level += 1;
+        appetite += 3;
+        hunger = appetite - 2;
+        if (level == 2)
+        {
+            
+        }
+        if (level == 3)
+        {
+            mate = true;
+        }
+        if (level > 3)
+        {
+            Main.game.nifty.gotoScreen("win");
+        }
+    }
+    
+    public void mating()
+    {
+        //TODO code mating here
     }
 }
