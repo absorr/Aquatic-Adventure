@@ -30,10 +30,12 @@ import com.jme3.scene.control.CameraControl.ControlDirection;
 import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
 import com.jme3.ui.Picture;
+import com.lhsalliance.aquatic.entities.Anemone;
 import com.lhsalliance.aquatic.entities.Animal;
 import com.lhsalliance.aquatic.entities.AnimalRegistry;
 import com.lhsalliance.aquatic.entities.KillAI;
 import com.lhsalliance.aquatic.entities.Model;
+import com.lhsalliance.aquatic.entities.Updatable;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
@@ -53,6 +55,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
 
     public static Main game;
     public Animal player;
+    public int hunger;
+    public int appetite;
     boolean isRunning=true;
     boolean isRight=false;
     boolean isLeft=false;
@@ -66,6 +70,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public Node movementNode = new Node();
     public ViewPort bgvp;
     public Picture bgpic;
+    
+    public int ticks = 0;
     
     public static void main(String[] args) {
         Main app = new Main();
@@ -126,12 +132,45 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public void simpleUpdate(float tpf) {
         bgpic.updateLogicalState(1);
         bgpic.updateGeometricState();
-        Iterator itr = Animal.getAnimals();
-        while(itr.hasNext())
+        
+        if (isInGame)
         {
-            Animal ani = (Animal) itr.next();
-            ani.update(tpf);
+            Iterator itr = Animal.getAnimals();
+            while(itr.hasNext())
+            {
+                Animal ani = (Animal) itr.next();
+                ani.update(tpf);
+            }
+
+            itr = Updatable.objects.iterator();
+            while(itr.hasNext())
+            {
+                Updatable obj = (Updatable) itr.next();
+                obj.onUpdate(tpf);
+            }
+
+            if(player.getHealth() <= 0) //Death
+            {
+                this.stop();
+            }
+
+            if(hunger <= 0 && ticks % 300 == 0) //Starve
+            {
+                player.damage(1, player);
+            }
+
+            if(ticks % 1000 == 0 && hunger > 0) //Decrease hunger over time
+            {
+                decreaseHunger(1);
+            }
+            
+            if(hunger > appetite - 3)
+            {
+                player.addHealth(2);
+            }
         }
+        
+        ticks++;
     }
 
     @Override
@@ -142,12 +181,10 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     /** Custom Keybinding: Map named actions to inputs. */
     private void initKeys() {
       // You can map one or several inputs to one named action
-      inputManager.addMapping("Pause",  new KeyTrigger(KeyInput.KEY_P));
-      inputManager.addMapping("Left",   new KeyTrigger(KeyInput.KEY_J));
-      inputManager.addMapping("Right",  new KeyTrigger(KeyInput.KEY_K));
+      inputManager.addMapping("Pause",  new KeyTrigger(KeyInput.KEY_ESCAPE));
       inputManager.addMapping("Space", new KeyTrigger(KeyInput.KEY_SPACE));
-      inputManager.addMapping("Left",   new KeyTrigger(KeyInput.KEY_A));
-    inputManager.addMapping("Right",  new KeyTrigger(KeyInput.KEY_D));
+      inputManager.addMapping("Left",   new KeyTrigger(KeyInput.KEY_D));
+    inputManager.addMapping("Right",  new KeyTrigger(KeyInput.KEY_A));
     inputManager.addMapping("Up",     new KeyTrigger(KeyInput.KEY_W));
     inputManager.addMapping("Down",   new KeyTrigger(KeyInput.KEY_S));
     
@@ -301,13 +338,21 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         //Unload main menu
         //nifty.exit();
         
+        //Make the player
         player = AnimalRegistry.getAnimal("Clownfish");
         player.model.loadModel();
+        hunger = 10;
+        appetite = 12;
         
+        //Add an anemone
+        Anemone anm = new Anemone();
+        anm.model.node.setLocalTranslation(-30f, -6f, 10f);
+        
+        //Add a shark
         Animal shark = AnimalRegistry.getAnimal("Great White Shark");
         shark.model.loadModel();
-        shark.ai.add(new KillAI(20));
-        shark.model.node.setLocalTranslation(10f, 0f, 10f);
+        shark.ai.add(new KillAI(25));
+        shark.model.node.setLocalTranslation(30f, 0f, 30f);
         
         // You must add a light to make the model visible
         DirectionalLight sun = new DirectionalLight();
@@ -328,5 +373,32 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         camNode.lookAt(player.model.node.getLocalTranslation(), Vector3f.UNIT_Y);
         
         isInGame = true;
+    }
+    
+    public void decreaseHunger(int amt)
+    {
+        if(hunger > 0)
+        {
+            hunger -= amt;
+            
+            //TODO Update HUD
+            
+            System.out.println("Hunger decreased to " + hunger);
+        }
+    }
+    
+    public void increaseHunger(int amt)
+    {
+        if(hunger < appetite)
+        {
+            hunger += amt;
+            
+            if(hunger > appetite)
+                hunger = appetite;
+            
+            //TODO; Update HUD
+            
+            System.out.println("Hunger increased to " + hunger);
+        }
     }
 }

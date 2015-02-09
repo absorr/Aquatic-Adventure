@@ -39,11 +39,31 @@ public class KillAI implements AI
         
         double dist = Math.sqrt(Math.pow(difX, 2) + Math.pow(difZ, 2));
         
-        if (dist < this.radius)
+        float angle = (float)Math.atan(difX/difZ) - (180*FastMath.DEG_TO_RAD);
+        
+        if (difZ <= 0)
         {
-            node.setLocalRotation(new Quaternion().fromAngleAxis(
-                    (float)Math.atan(difX/difZ) - (180*FastMath.DEG_TO_RAD), 
-                    new Vector3f(0,1,0)));
+            angle = (float)Math.atan(difZ/difX);
+        }
+        
+        if (difZ == 0 && difX < 0)
+        {
+            angle = 0;
+        }
+        
+        if (dist < 2)
+        {
+            if (Main.game.ticks % 50 == 0)
+            {
+                Main.game.player.damage(8, animal);
+                System.out.println("OM NOM");
+            }
+        }
+        else if (dist < this.radius)
+        {
+            node.setLocalRotation(new Quaternion().fromAngleAxis(angle, new Vector3f(0,1,0)));
+            Vector3f forward = node.getLocalRotation().getRotationColumn(2);
+            node.move(forward.divide(4));
         }
     }
     

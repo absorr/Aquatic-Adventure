@@ -4,6 +4,7 @@
  */
 package com.lhsalliance.aquatic.entities;
 
+import com.lhsalliance.aquatic.core.Main;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -23,7 +24,7 @@ public class Animal
     public String displayName;
     public Model model;
     public int maxHealth;
-    public int health;
+    private int health;
     public HashSet<AI> ai = new HashSet<AI>();
     
     protected static HashSet<Animal> animals = new HashSet<Animal>() {};
@@ -53,5 +54,28 @@ public class Animal
             AI a = (AI) itr.next();
             a.onUpdate(tpf, this);
         }
+    }
+    
+    public int getHealth()
+    {
+            return this.health;
+    }
+    
+    public void damage(int ammount, Animal attacker)
+    {
+        this.health -= ammount;
+        
+        if (this.health <= 0)
+        {
+            //TODO: Death
+        }
+    }
+    
+    public void addHealth(int ammount)
+    {
+        this.health += ammount;
+        
+        if (health > maxHealth)
+            health = maxHealth;
     }
 }
