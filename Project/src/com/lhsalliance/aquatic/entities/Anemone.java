@@ -47,9 +47,13 @@ public class Anemone extends Hidable
             Main.game.hiding();
             playHide = true;
         }
+        
+        if(dist < 5)
+        {
+            Main.hide = true;
+        }
         else
         {
-            Main.game.hide = false;
             playHide = false;
         }
         

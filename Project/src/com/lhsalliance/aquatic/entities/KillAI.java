@@ -53,7 +53,7 @@ public class KillAI implements AI
         
         if (dist < 2)
         {
-            if(!Main.game.hide)
+            if(!Main.hide)
             {
                 if (Main.game.ticks % 50 == 0)
                 {
@@ -62,7 +62,7 @@ public class KillAI implements AI
                 }
             }
         }
-        else if (!Main.game.hide && dist < this.radius)
+        else if (!Main.hide && dist < this.radius)
         {
             node.setLocalRotation(new Quaternion().fromAngleAxis(angle, new Vector3f(0,1,0)));
             Vector3f forward = node.getLocalRotation().getRotationColumn(2);
