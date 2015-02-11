@@ -10,6 +10,7 @@ import com.lhsalliance.aquatic.core.Main;
 import com.lhsalliance.aquatic.entities.Anemone;
 import com.lhsalliance.aquatic.entities.Animal;
 import com.lhsalliance.aquatic.entities.AnimalRegistry;
+import com.lhsalliance.aquatic.entities.Hidable;
 import com.lhsalliance.aquatic.entities.KillAI;
 import com.lhsalliance.aquatic.entities.Model;
 import java.util.Random;
@@ -30,8 +31,8 @@ public class WorldGen
             //Randomly Generate Animals
             for (int i=1;i<50;i++)
             {
-                int randX = rand.nextInt(100) + 5 * i;
-                int randZ = rand.nextInt(100) + 5 * i;
+                int randX = rand.nextInt(100) + 6 * i;
+                int randZ = rand.nextInt(100) + 6 * i;
                 
                 if (randX > 50)
                 {
@@ -92,8 +93,8 @@ public class WorldGen
             //Randomly Generate Environment
             for(int i=1;i<25;i++)
             {
-                int randX = rand.nextInt(100) + 5 * i;
-                int randZ = rand.nextInt(100) + 5 * i;
+                int randX = rand.nextInt(100) + 6 * i;
+                int randZ = rand.nextInt(100) + 6 * i;
                 
                 if (randX > 50)
                 {
@@ -111,7 +112,8 @@ public class WorldGen
                 
                 if (type >= 0 && type < 5)
                 {
-                    Model model = new Model("assets/Models/branching coral/branching coral.j3o");
+                    Hidable hide = new Hidable(new Model("assets/Models/branching coral/branching coral.j3o"));
+                    Model model = hide.model;
                     model.loadModel();
                     model.node.setLocalTranslation(x, 0, z);
                     float rotation = rand.nextInt(360)*FastMath.RAD_TO_DEG;
@@ -124,7 +126,7 @@ public class WorldGen
                 }
                 else if (type >= 7 && type < 8)
                 {
-                    Model model = new Model("assets/Models/branching coral/branching coral.j3o");
+                    Model model = new Model("assets/Models/sea cucumber/sea cucumber.j3o");
                     model.loadModel();
                     model.node.setLocalTranslation(x, 0, z);
                     float rotation = rand.nextInt(360)*FastMath.RAD_TO_DEG;
@@ -132,26 +134,20 @@ public class WorldGen
                 }
                 else if (type >= 8 && type < 9)
                 {
-                    Model model = new Model("assets/Models/branching coral/branching coral.j3o");
+                    Model model = new Model("assets/Models/starfish/starfish.j3o");
                     model.loadModel();
                     model.node.setLocalTranslation(x, 0, z);
                     float rotation = rand.nextInt(360)*FastMath.RAD_TO_DEG;
                     model.node.rotate(0, rotation, 0);
                 }
-                else if (type >= 9 && type < 10)
+                else if (type >= 9 && type < 13)
                 {
-                    Model model = new Model("assets/Models/branching coral/branching coral.j3o");
+                    Hidable hide = new Hidable(new Model("assets/Models/tube coral/tube coral.j3o"));
+                    Model model = hide.model;
                     model.loadModel();
                     model.node.setLocalTranslation(x, 0, z);
                     float rotation = rand.nextInt(360)*FastMath.RAD_TO_DEG;
                     model.node.rotate(0, rotation, 0);
-                }
-                else if (type >= 10 && type < 13)
-                {
-                    Picture pic = new Picture("Background Picture");
-                    pic.setImage(Main.game.getAssetManager(), "Interface/rocks/rock1.png", false);
-                    pic.setPosition(x,z);
-                    Main.game.getRootNode().attachChild(pic);
                 }
             }
         }

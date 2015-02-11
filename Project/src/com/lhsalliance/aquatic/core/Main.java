@@ -478,7 +478,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     
      //define age control bools
     public boolean mate = false;
-    public boolean hide = false;
+    public static boolean hide = false;
     
     public boolean isRunning=true;
     public boolean isRight=false;
@@ -586,20 +586,20 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         
         if (isInGame)
         {
+            hide = false;
+            for (Updatable obj : Updatable.objects) {
+                obj.onUpdate(tpf);
+            }
+            
             Iterator itr = Animal.getAnimals();
             while(itr.hasNext())
             {
                 Animal ani = (Animal) itr.next();
                 ani.update(tpf);
             }
-
-            itr = Updatable.objects.iterator();
-            while(itr.hasNext())
-            {
-                Updatable obj = (Updatable) itr.next();
-                obj.onUpdate(tpf);
-            }
         }
+        
+        playerHandler.update(tpf);
         
         ticks++;
     }
@@ -808,6 +808,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         HandlerPlayer.hideCount += 1;
     }
     
-    }
+}
 
 >>>>>>> origin/master

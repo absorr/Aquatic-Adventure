@@ -20,6 +20,7 @@ public class Hidable extends Updatable
     
     public Hidable(Model safety)
     {
+        super();
         model = safety;
     }
     
@@ -42,9 +43,13 @@ public class Hidable extends Updatable
             Main.game.hiding();
             playHide = true;
         }
+        
+        if(dist < 5)
+        {
+            Main.hide = true;
+        }
         else
         {
-            Main.game.hide = false;
             playHide = false;
         }
     }
