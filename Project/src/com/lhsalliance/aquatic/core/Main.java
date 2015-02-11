@@ -7,6 +7,7 @@ import com.jme3.animation.AnimEventListener;
 import com.jme3.animation.LoopMode;
 import com.jme3.app.SimpleApplication;
 import com.jme3.export.binary.BinaryImporter;
+import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
@@ -146,6 +147,9 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                 50));
         
         //menuMain();
+        
+        guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
+        
         btn_Start();
         
         initKeys(); // load my custom keybinding
@@ -478,6 +482,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     
      //define age control bools
     public boolean mate = false;
+    public Model heart;
     public static boolean hide = false;
     
     public boolean isRunning=true;
@@ -796,11 +801,29 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         isInGame = true;
     }
     
+    public BitmapFont getFont()
+    {
+        return this.guiFont;
+    }
+    
        //age level control methods
     
     public void mating()
     {
-        //TODO code mating here
+        if(!mate)
+        {
+            heart = new Model("assets/Models/heart/heart.j3o");
+            heart.loadModel();
+            heart.node.setLocalRotation(new Quaternion().fromAngleAxis(90*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
+            control = player.model.node.getControl(AnimControl.class);
+            control.addListener(this);
+            channel = control.createChannel();
+            channel.setAnim("ArmatureAction", 0.50f);
+        }
+        heart.node.setLocalTranslation(player.model.node.getLocalTranslation().x, 
+                player.model.node.getLocalTranslation().y + 4, 
+                player.model.node.getLocalTranslation().z);
+        this.mate = true;
     }
     public void hiding()
     {

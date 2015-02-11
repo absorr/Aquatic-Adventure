@@ -4,6 +4,8 @@
  */
 package com.lhsalliance.aquatic.entities;
 
+import com.jme3.math.Vector3f;
+import com.jme3.scene.Node;
 import com.lhsalliance.aquatic.core.Main;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -58,12 +60,27 @@ public class Animal
     
     public void update(float tpf)
     {
-        Iterator itr = ai.iterator();
-        
-        while (itr.hasNext())
-        {
-            AI a = (AI) itr.next();
+        for (AI a : ai) {
             a.onUpdate(tpf, this);
+        }
+        
+        if(model.node == null)
+            return;
+        
+        Node node = model.node;
+        Node player = Main.game.player.model.node;
+        
+        Vector3f posAnimal = node.getLocalTranslation();
+        Vector3f posPlayer = player.getLocalTranslation();
+        
+        float difX = posAnimal.x - posPlayer.x;
+        float difZ = posAnimal.z - posPlayer.z;
+        
+        double dist = Math.sqrt(Math.pow(difX, 2) + Math.pow(difZ, 2));
+        
+        if (dist < 5 && displayName.equals(Main.game.player.displayName) && difX != 0 && difZ != 0)
+        {
+            Main.game.mating();
         }
     }
     

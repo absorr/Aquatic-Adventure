@@ -14,7 +14,7 @@ import com.lhsalliance.aquatic.core.*;
  */
 public class Anemone extends Hidable 
 {
-    
+    private int bacteria = 10;
     
     public Anemone()
     {
@@ -37,9 +37,15 @@ public class Anemone extends Hidable
         
         double dist = Math.sqrt(Math.pow(difX, 2) + Math.pow(difZ, 2));
         
-        if (dist < 5 && Main.game.player.displayName == "Clownfish" && Main.game.ticks % 80 == 0)
+        if (dist < 5 && "Clownfish".equals(Main.game.player.displayName) && Main.game.ticks % 80 == 0 && bacteria > 0)
         {
             Main.game.playerHandler.increaseHunger(2);
+            bacteria--;
+        }
+        
+        if(Main.game.ticks % 200 == 0 && bacteria < 12)
+        {
+            bacteria++;
         }
         
         if (dist < 5 && !playHide)
