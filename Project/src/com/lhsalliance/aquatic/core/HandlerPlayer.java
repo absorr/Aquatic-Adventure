@@ -6,6 +6,7 @@ package com.lhsalliance.aquatic.core;
 
 import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
+import com.lhsalliance.aquatic.entities.Animal;
 
 /**
  *
@@ -19,9 +20,7 @@ public class HandlerPlayer
     public int level = 1;
     public static int hideCount = 0;
     public static int eatCount = 0;
-    
-    
-   
+    public static int distTraveled = 0;
     
     public HandlerPlayer()
     {
@@ -33,6 +32,12 @@ public class HandlerPlayer
     {
         if (Main.game.isInGame)
         {
+            if(level == 1 && hideCount >= 15 && eatCount >= 15)
+                levelUp();
+            else if(level == 1 && distTraveled >= 300 && eatCount >= 20)
+                levelUp();
+            else if(level == 1 && hideCount >= 60 && eatCount >= 60)
+                levelUp();
             if(Main.game.player.getHealth() <= 0) //Death
             {
                 Main.game.nifty.gotoScreen("fin");
@@ -86,9 +91,9 @@ public class HandlerPlayer
             if(hunger > appetite)
                 hunger = appetite;
             
-            //TODO; Update HUD
+            eatCount++;
             
-            System.out.println("Hunger increased to " + hunger);
+            System.out.println(eatCount + " " + hideCount + "Hunger increased to " + hunger);
         }
     }
     public void levelUp()
@@ -98,16 +103,19 @@ public class HandlerPlayer
         hunger = appetite - 2;
         if (level == 2)
         {
-            
+            Main.game.player.age = Animal.AnimalAge.TEEN;
         }
         if (level == 3)
         {
             Main.game.mate = true;
+            Main.game.player.age = Animal.AnimalAge.ADULT;
         }
         if (level > 3)
         {
             Main.game.nifty.gotoScreen("win");
         }
+        hideCount = 0;
+        eatCount = 0;
     } 
     
     

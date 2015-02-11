@@ -53,8 +53,6 @@ public class KillAI implements AI
             angle = 0;
         }
         
-        System.out.println("debug - KILL AI " + difX + " " + difZ + " " + dist + " -> " + angle);
-        
         if (dist < 2)
         {
             if(!Main.hide)

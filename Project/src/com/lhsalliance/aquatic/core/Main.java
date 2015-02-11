@@ -397,10 +397,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
             heart = new Model("assets/Models/heart/heart.j3o");
             heart.loadModel();
             heart.node.setLocalRotation(new Quaternion().fromAngleAxis(90*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
-            control = player.model.node.getControl(AnimControl.class);
-            control.addListener(this);
-            channel = control.createChannel();
-            channel.setAnim("ArmatureAction", 0.50f);
         }
         heart.node.setLocalTranslation(player.model.node.getLocalTranslation().x, 
                 player.model.node.getLocalTranslation().y + 4, 
