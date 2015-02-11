@@ -15,7 +15,7 @@ import com.lhsalliance.aquatic.core.Main;
 
 /**
  *
- * @author Will
+ * @author Will & Matt ;););););)
  */
 public class KillAI implements AI
 {
@@ -41,18 +41,26 @@ public class KillAI implements AI
         
         double dist = Math.sqrt(Math.pow(difX, 2) + Math.pow(difZ, 2));
         
-        float angle = (float)Math.atan(difX/difZ) - (180*FastMath.DEG_TO_RAD);
+        float angle = (float)Math.atan(Math.abs(difX)/Math.abs(difZ));
         
-        if (difZ <= 0)
+        if(difX < 0 && difZ < 0)
         {
-            angle = (float)Math.atan(difZ/difX);
+            angle = -((float)Math.atan(Math.abs(difX)/Math.abs(difZ)) + (180*FastMath.DEG_TO_RAD));
+        }
+                       
+        else 
+        {
+            angle = (float)Math.atan(difX/difZ) + (180*FastMath.DEG_TO_RAD);
         }
         
-        if (difZ == 0 && difX < 0)
+        if (difZ == 0  && difX < 0)
         {
             angle = 0;
         }
         
+        
+      
+              
         System.out.println("debug - KILL AI " + difX + " " + difZ + " " + dist + " -> " + angle);
         
         if (dist < 2)
