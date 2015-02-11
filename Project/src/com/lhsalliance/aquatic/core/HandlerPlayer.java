@@ -45,7 +45,7 @@ public class HandlerPlayer
                 decreaseHunger(1);
             }
             
-            if(hunger > appetite - 3)
+            if(hunger > appetite - 3 && Main.game.ticks % 700 == 0)
             {
                 Main.game.player.addHealth(2);
             }

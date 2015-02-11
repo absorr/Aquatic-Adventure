@@ -6,23 +6,21 @@ package com.lhsalliance.aquatic.entities;
 
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
-import com.lhsalliance.aquatic.core.*;
+import com.lhsalliance.aquatic.core.Main;
+import static com.lhsalliance.aquatic.entities.Updatable.objects;
 
 /**
  *
- * @author Will
+ * @author Emily
  */
-public class Anemone extends Updatable 
+public class Hidable extends Updatable
 {
+    public boolean playHide = false;
     public Model model;
     
-    
-    public Anemone()
+    public Hidable(Model safety)
     {
-        super();
-        model = new Model("assets/Models/anemone/anemone.j3o");
-        model.loadModel();
-        model.node.scale(3f);
+        model = safety;
     }
     
     @Override
@@ -39,11 +37,16 @@ public class Anemone extends Updatable
         
         double dist = Math.sqrt(Math.pow(difX, 2) + Math.pow(difZ, 2));
         
-        if (dist < 5 && Main.game.player.displayName == "Clownfish" && Main.game.ticks % 80 == 0)
+        if (dist < 5 && !playHide)
         {
-            Main.game.playerHandler.increaseHunger(2);
+            Main.game.hiding();
+            playHide = true;
         }
-        
+        else
+        {
+            Main.game.hide = false;
+            playHide = false;
+        }
     }
     
 }

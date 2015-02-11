@@ -27,7 +27,7 @@ public class Animal
     private int health;
     public HashSet<AI> ai = new HashSet<AI>();
     
-    protected static HashSet<Animal> animals = new HashSet<Animal>() {};
+    protected static HashSet<Animal> animals = new HashSet<Animal>();
     
     public Animal(String name, Model animalModel, int animalHealth)
     {
