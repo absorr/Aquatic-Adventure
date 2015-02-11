@@ -6,6 +6,7 @@ import com.jme3.animation.AnimEventListener;
 import com.jme3.animation.LoopMode;
 import com.jme3.app.SimpleApplication;
 import com.jme3.export.binary.BinaryImporter;
+import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
@@ -52,7 +53,7 @@ import javax.imageio.ImageIO;
 
 /**
  * test
- * @author LHSInteralliance
+ * @author normenhansen
  */
 public class Main extends SimpleApplication implements AnimEventListener, ScreenController {
 
@@ -63,7 +64,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     
      //define age control bools
     public boolean mate = false;
-    public boolean hide = false;
+    public Model heart;
+    public static boolean hide = false;
     
     public boolean isRunning=true;
     public boolean isRight=false;
@@ -171,20 +173,20 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         
         if (isInGame)
         {
+            hide = false;
+            for (Updatable obj : Updatable.objects) {
+                obj.onUpdate(tpf);
+            }
+            
             Iterator itr = Animal.getAnimals();
             while(itr.hasNext())
             {
                 Animal ani = (Animal) itr.next();
                 ani.update(tpf);
             }
-
-            itr = Updatable.objects.iterator();
-            while(itr.hasNext())
-            {
-                Updatable obj = (Updatable) itr.next();
-                obj.onUpdate(tpf);
-            }
         }
+        
+        playerHandler.update(tpf);
         
         ticks++;
     }
@@ -197,9 +199,9 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     /** Custom Keybinding: Map named actions to inputs. */
     private void initKeys() {
       // You can map one or several inputs to one named action
-    inputManager.addMapping("Pause",  new KeyTrigger(KeyInput.KEY_ESCAPE));
-    inputManager.addMapping("Space", new KeyTrigger(KeyInput.KEY_SPACE));
-    inputManager.addMapping("Left",   new KeyTrigger(KeyInput.KEY_D));
+      inputManager.addMapping("Pause",  new KeyTrigger(KeyInput.KEY_ESCAPE));
+      inputManager.addMapping("Space", new KeyTrigger(KeyInput.KEY_SPACE));
+      inputManager.addMapping("Left",   new KeyTrigger(KeyInput.KEY_D));
     inputManager.addMapping("Right",  new KeyTrigger(KeyInput.KEY_A));
     inputManager.addMapping("Up",     new KeyTrigger(KeyInput.KEY_W));
     inputManager.addMapping("Down",   new KeyTrigger(KeyInput.KEY_S));
@@ -213,15 +215,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
       public void onAction(String name, boolean keyPressed, float tpf) {
         if (name.equals("Pause") && !keyPressed) {
           isRunning = !isRunning;
-        }
-        else if (name.equals("Right") && !keyPressed) {
-            isRight = false;
-        }
-        else if (name.equals("Left") && !keyPressed) {
-            isLeft = false;
-        }
-        else if (name.equals("Up") && !keyPressed) {
-            
         }
         
       }
@@ -367,16 +360,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         player = AnimalRegistry.getAnimal("Clownfish");
         player.model.loadModel();
         
-        //Add an anemone
-        Anemone anm = new Anemone();
-        anm.model.node.setLocalTranslation(-30f, -6f, 10f);
-        
-        //Add a shark
-        Animal shark = AnimalRegistry.getAnimal("Great White Shark");
-        shark.model.loadModel();
-        shark.ai.add(new KillAI(25));
-        shark.model.node.setLocalTranslation(30f, 0f, 30f);
-        
         // You must add a light to make the model visible
         DirectionalLight sun = new DirectionalLight();
         sun.setDirection(new Vector3f(-0.8f, -0.7f, 2.0f));
@@ -400,16 +383,34 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         isInGame = true;
     }
     
+    public BitmapFont getFont()
+    {
+        return this.guiFont;
+    }
+    
        //age level control methods
     
     public void mating()
     {
-        //TODO code mating here
-        //getin jiggy wit da fishy
+        if(!mate)
+        {
+            heart = new Model("assets/Models/heart/heart.j3o");
+            heart.loadModel();
+            heart.node.setLocalRotation(new Quaternion().fromAngleAxis(90*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
+            control = player.model.node.getControl(AnimControl.class);
+            control.addListener(this);
+            channel = control.createChannel();
+            channel.setAnim("ArmatureAction", 0.50f);
+        }
+        heart.node.setLocalTranslation(player.model.node.getLocalTranslation().x, 
+                player.model.node.getLocalTranslation().y + 4, 
+                player.model.node.getLocalTranslation().z);
+        this.mate = true;
     }
     public void hiding()
     {
         hide = true;
         HandlerPlayer.hideCount += 1;
     }
-    }
+    
+}

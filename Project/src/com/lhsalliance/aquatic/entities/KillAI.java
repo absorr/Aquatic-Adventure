@@ -21,6 +21,8 @@ public class KillAI implements AI
 {
     private float radius;
     
+    private int wait = -1;
+    
     public KillAI(float searchRadius)
     {
         this.radius = searchRadius;
@@ -51,6 +53,8 @@ public class KillAI implements AI
             angle = 0;
         }
         
+        System.out.println("debug - KILL AI " + difX + " " + difZ + " " + dist + " -> " + angle);
+        
         if (dist < 2)
         {
             if(!Main.hide)
@@ -67,6 +71,27 @@ public class KillAI implements AI
             node.setLocalRotation(new Quaternion().fromAngleAxis(angle, new Vector3f(0,1,0)));
             Vector3f forward = node.getLocalRotation().getRotationColumn(2);
             node.move(forward.divide(4));
+        }
+        else if(Main.hide)
+        {
+            if(wait == -1)
+            {
+                wait = 100;
+            }
+            else if (wait > 0)
+            {
+                wait--;
+            }
+            else if (wait == 0 && dist < this.radius)
+            {
+                node.setLocalRotation(new Quaternion().fromAngleAxis(angle + 180, new Vector3f(0,1,0)));
+                Vector3f forward = node.getLocalRotation().getRotationColumn(2);
+                node.move(forward.divide(4));
+            }
+            else if (wait == 0)
+            {
+                wait = -1;
+            }
         }
     }
     

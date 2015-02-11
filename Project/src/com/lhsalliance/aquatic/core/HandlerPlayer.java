@@ -4,6 +4,9 @@
  */
 package com.lhsalliance.aquatic.core;
 
+import com.jme3.font.BitmapText;
+import com.jme3.math.ColorRGBA;
+
 /**
  *
  * @author Will
@@ -50,6 +53,15 @@ public class HandlerPlayer
             {
                 Main.game.player.addHealth(2);
             }
+            Main.game.getGuiNode().detachAllChildren();
+            BitmapText healthText = new BitmapText(Main.game.getFont(), false);
+            healthText.setSize(Main.game.getFont().getCharSet().getRenderedSize() * 2);
+            healthText.setColor(ColorRGBA.DarkGray);
+            healthText.setText("Health: " + Main.game.player.getHealth() + "/"+Main.game.player.maxHealth +
+                    "     Hunger: " + hunger + "/" + appetite +
+                    "     Age: " + Main.game.player.age);
+            healthText.setLocalTranslation(30, healthText.getLineHeight(), 0);
+            Main.game.getGuiNode().attachChild(healthText);
         }
     }
     
