@@ -76,7 +76,6 @@ public class Animal
         float difZ = posAnimal.z - posPlayer.z;
         
         double dist = Math.sqrt(Math.pow(difX, 2) + Math.pow(difZ, 2));
-        movement();
         
         if (dist < 5 && displayName.equals(Main.game.player.displayName) && difX != 0 && difZ != 0)
         {
@@ -105,46 +104,5 @@ public class Animal
         
         if (health > maxHealth)
             health = maxHealth;
-    }
-    public void movement()
-    {
-        Node node = model.node;
-        Node player = Main.game.player.model.node;
-        
-        Vector3f posAnimal = node.getLocalTranslation();
-        Vector3f posPlayer = player.getLocalTranslation();
-        
-        Random randomGenerator = new Random();
-        int xInt = randomGenerator.nextInt(6000);
-        int zInt = randomGenerator.nextInt(6000);
-        
-        float difX = posAnimal.x - xInt;
-        float difZ = posAnimal.z - zInt;
-        
-        double dist = Math.sqrt(Math.pow(difX, 2) + Math.pow(difZ, 2));
-        
-        float angle = (float)Math.atan(Math.abs(difX)/Math.abs(difZ));
-        
-        if(difX < 0 && difZ < 0)
-        {
-            angle = (float)Math.atan(Math.abs(difX)/Math.abs(difZ));
-        }
-        else if(difX > 0 && difZ < 0)
-        {
-            angle = (float)Math.atan(Math.abs(difZ)/Math.abs(difX))- 90*FastMath.DEG_TO_RAD;
-        }
-        else if(difX > 0 && difZ > 0)
-        {
-            angle = (float)Math.atan(Math.abs(difX)/Math.abs(difZ))+ 180*FastMath.DEG_TO_RAD;
-        }
-        else if(difX < 0 && difZ > 0)
-        {
-            angle = (float)Math.atan(Math.abs(difZ)/Math.abs(difX))+ 90*FastMath.DEG_TO_RAD;
-        }
-        
-        if (difZ == 0  && difX < 0)
-        {
-            angle = 0;
-        }
     }
 }
