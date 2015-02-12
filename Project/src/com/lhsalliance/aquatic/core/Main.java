@@ -345,6 +345,12 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
 
        nifty.gotoScreen("animal");
     }
+    public void openFinScreen() {
+
+       nifty.addXml("Interface/Screen.xml");
+
+       nifty.gotoScreen("fin");
+    }
     @Override
     public void onEndScreen() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -410,6 +416,15 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     {
         hide = true;
         HandlerPlayer.hideCount += 1;
+    }
+    public boolean isHiding()
+    {
+        boolean retVal;
+        if (hide == true)
+            retVal = true;
+        else
+            retVal = false;
+        return retVal;
     }
     
 }

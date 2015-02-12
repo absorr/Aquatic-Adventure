@@ -90,6 +90,16 @@ public class HandlerPlayer
                 objText.setText("YOU WON");
             objText.setLocalTranslation(30, healthText.getLineHeight() * 2, 0);
             Main.game.getGuiNode().attachChild(objText);
+            
+            if(Main.game.isHiding())
+            {
+                BitmapText hideText = new BitmapText(Main.game.getFont(), false);
+                hideText.setSize(Main.game.getFont().getCharSet().getRenderedSize());
+                hideText.setColor(ColorRGBA.DarkGray);
+                hideText.setText("You are hiding!  If you are in the anemone or the coral, the shark cannot get you!");
+                hideText.setLocalTranslation(10, hideText.getLineHeight()*5, 0);
+                Main.game.getGuiNode().attachChild(hideText);
+            }
         }
     }
     
