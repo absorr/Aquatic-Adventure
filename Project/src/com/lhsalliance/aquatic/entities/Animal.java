@@ -4,13 +4,12 @@
  */
 package com.lhsalliance.aquatic.entities;
 
+import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.lhsalliance.aquatic.core.HandlerPlayer;
 import com.lhsalliance.aquatic.core.Main;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  *

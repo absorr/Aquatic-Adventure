@@ -146,8 +146,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                 new Model("assets/Models/MantaRay/MantaRay.j3o"),
                 50));
         
-        //menuMain();
-        btn_Start();
+        menuMain();
+        //btn_Start();
         
         initKeys(); // load my custom keybinding
         inputManager.setCursorVisible(true);
@@ -332,11 +332,19 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public void onStartScreen() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    public void openTutorialScreen() {
+
+       nifty.addXml("Interface/Screen.xml");
+
+       nifty.gotoScreen("tutorial");
+
+    }
     public void openBiomeScreen() {
 
        nifty.addXml("Interface/Screen.xml");
 
        nifty.gotoScreen("biome");
+       
 
     }
     public void openAnimalScreen() {
@@ -344,6 +352,12 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
        nifty.addXml("Interface/Screen.xml");
 
        nifty.gotoScreen("animal");
+    }
+    public void openFinScreen() {
+
+       nifty.addXml("Interface/Screen.xml");
+
+       nifty.gotoScreen("fin");
     }
     @Override
     public void onEndScreen() {
@@ -411,6 +425,15 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public void hiding()
     {
         hide = true;
+    }
+    public boolean isHiding()
+    {
+        boolean retVal;
+        if (hide == true)
+            retVal = true;
+        else
+            retVal = false;
+        return retVal;
     }
     
 }

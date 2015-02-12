@@ -12,6 +12,7 @@ import com.lhsalliance.aquatic.entities.Animal;
 import com.lhsalliance.aquatic.entities.AnimalRegistry;
 import com.lhsalliance.aquatic.entities.Hidable;
 import com.lhsalliance.aquatic.entities.KillAI;
+import com.lhsalliance.aquatic.entities.MoveAI;
 import com.lhsalliance.aquatic.entities.Model;
 import java.util.Random;
 
@@ -75,7 +76,12 @@ public class WorldGen
                 if ("Great White Shark".equals(animal.displayName) || 
                         "Hammerhead Shark".equals(animal.displayName) || 
                         "Tiger Shark".equals(animal.displayName))
+                {   
                     animal.ai.add(new KillAI(25));
+                    animal.ai.add(new MoveAI(25));
+                }
+                else
+                    animal.ai.add(new MoveAI(25));
             }
             Picture bgpic = new Picture("Background Picture");
             bgpic.setImage(Main.game.getAssetManager(), "Interface/rocks/rock1.png", false);
