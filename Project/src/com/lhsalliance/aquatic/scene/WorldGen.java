@@ -30,7 +30,7 @@ public class WorldGen
             Object[] animals = AnimalRegistry.getAnimalList();
             
             //Randomly Generate Animals
-            for (int i=1;i<100;i++)
+            for (int i=1;i<250;i++)
             {
                 int randX = rand.nextInt(100) + 6 * i;
                 int randZ = rand.nextInt(100) + 6 * i;
@@ -82,7 +82,8 @@ public class WorldGen
                 if ("Great White Shark".equals(animal.displayName) || 
                         "Hammerhead Shark".equals(animal.displayName) || 
                         "Tiger Shark".equals(animal.displayName))
-                {   animal.ai.add(new KillAI(25));
+                {   
+                    animal.ai.add(new KillAI(25));
                     animal.ai.add(new MoveAI(25));
                 }
                 else
