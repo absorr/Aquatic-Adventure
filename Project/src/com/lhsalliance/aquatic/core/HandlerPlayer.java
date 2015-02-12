@@ -22,6 +22,8 @@ public class HandlerPlayer
     public static int eatCount = 0;
     public static int distTraveled = 0;
     
+    public static String debug = "";
+    
     public HandlerPlayer()
     {
         hunger = 10;
@@ -34,9 +36,9 @@ public class HandlerPlayer
         {
             if(level == 1 && hideCount >= 15 && eatCount >= 15)
                 levelUp();
-            else if(level == 1 && distTraveled >= 300 && eatCount >= 20)
+            else if(level == 2 && distTraveled >= 300 && eatCount >= 20)
                 levelUp();
-            else if(level == 1 && hideCount >= 60 && eatCount >= 60)
+            else if(level == 3 && Main.game.mate)
                 levelUp();
             if(Main.game.player.getHealth() <= 0) //Death
             {
@@ -58,7 +60,11 @@ public class HandlerPlayer
             {
                 Main.game.player.addHealth(2);
             }
+            
+            //Clear HUD
             Main.game.getGuiNode().detachAllChildren();
+            
+            //Add health text
             BitmapText healthText = new BitmapText(Main.game.getFont(), false);
             healthText.setSize(Main.game.getFont().getCharSet().getRenderedSize() * 2);
             healthText.setColor(ColorRGBA.DarkGray);
@@ -67,6 +73,23 @@ public class HandlerPlayer
                     "     Age: " + Main.game.player.age);
             healthText.setLocalTranslation(30, healthText.getLineHeight(), 0);
             Main.game.getGuiNode().attachChild(healthText);
+            
+            //Add objectives
+            BitmapText objText = new BitmapText(Main.game.getFont(), false);
+            objText.setSize(Main.game.getFont().getCharSet().getRenderedSize());
+            objText.setColor(ColorRGBA.DarkGray);
+            if(level == 1)
+                objText.setText("Times Hidden: " + hideCount + 
+                        "/15 | Times Fed = " + eatCount + "/20 " + debug);
+            else if (level == 2)
+                objText.setText("Distance Traveled: " + distTraveled + 
+                        "/300 | Times Fed = " + eatCount + "/20 " + debug);
+            else if (level == 3)
+                objText.setText("Health: 20 " + debug);
+            else
+                objText.setText("YOU WON");
+            objText.setLocalTranslation(30, healthText.getLineHeight() * 2, 0);
+            Main.game.getGuiNode().attachChild(objText);
         }
     }
     

@@ -29,7 +29,7 @@ public class WorldGen
             Object[] animals = AnimalRegistry.getAnimalList();
             
             //Randomly Generate Animals
-            for (int i=1;i<50;i++)
+            for (int i=1;i<100;i++)
             {
                 int randX = rand.nextInt(100) + 6 * i;
                 int randZ = rand.nextInt(100) + 6 * i;
@@ -91,7 +91,7 @@ public class WorldGen
             Main.game.getRootNode().attachChild(bgpic);
             
             //Randomly Generate Environment
-            for(int i=1;i<25;i++)
+            for(int i=1;i<50;i++)
             {
                 int randX = rand.nextInt(100) + 6 * i;
                 int randZ = rand.nextInt(100) + 6 * i;

@@ -269,6 +269,9 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                     camNode.setLocalTranslation(c.x, c.y, c.z - value*8*speed);
                     player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(180*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
                   }
+                  
+                  if(isLeft || isRight || isUp || isDown)
+                      HandlerPlayer.distTraveled++;
             }
             else
             {
