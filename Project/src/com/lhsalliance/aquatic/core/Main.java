@@ -363,6 +363,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         player = AnimalRegistry.getAnimal("Clownfish");
         player.model.loadModel();
         
+        this.playerHandler.levelUp();
+        
         // You must add a light to make the model visible
         DirectionalLight sun = new DirectionalLight();
         sun.setDirection(new Vector3f(-0.8f, -0.7f, 2.0f));
@@ -409,7 +411,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public void hiding()
     {
         hide = true;
-        HandlerPlayer.hideCount += 1;
     }
     
 }

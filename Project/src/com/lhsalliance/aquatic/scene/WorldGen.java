@@ -29,22 +29,16 @@ public class WorldGen
             Object[] animals = AnimalRegistry.getAnimalList();
             
             //Randomly Generate Animals
-            for (int i=1;i<100;i++)
+            for (int i=1;i<500;i++)
             {
-                int randX = rand.nextInt(100) + 6 * i;
-                int randZ = rand.nextInt(100) + 6 * i;
+                int x = rand.nextInt(500) + 10;
+                int z = rand.nextInt(500) + 10;
                 
-                if (randX > 50)
-                {
-                    randX = (randX - 50) *  -1;
-                }
-                if (randZ > 50)
-                {
-                    randZ = (randZ - 50) *  -1;
-                }
+                if(rand.nextBoolean())
+                    x *= -1;
                 
-                int x = randX;
-                int z = randZ;
+                if(rand.nextBoolean())
+                    z *= -1;
                 
                 int randIndx = rand.nextInt(153);
                 int index = 3;
@@ -91,22 +85,16 @@ public class WorldGen
             Main.game.getRootNode().attachChild(bgpic);
             
             //Randomly Generate Environment
-            for(int i=1;i<50;i++)
+            for(int i=1;i<300;i++)
             {
-                int randX = rand.nextInt(100) + 6 * i;
-                int randZ = rand.nextInt(100) + 6 * i;
+                int x = rand.nextInt(500) + 6;
+                int z = rand.nextInt(500) + 6;
                 
-                if (randX > 50)
-                {
-                    randX = (randX - 50) *  -1;
-                }
-                if (randZ > 50)
-                {
-                    randZ = (randZ - 50) *  -1;
-                }
+                if(rand.nextBoolean())
+                    x *= -1;
                 
-                int x = randX;
-                int z = randZ;
+                if(rand.nextBoolean())
+                    z *= -1;
                 
                 int type = rand.nextInt(13);
                 

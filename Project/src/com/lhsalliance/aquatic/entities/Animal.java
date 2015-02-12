@@ -6,6 +6,7 @@ package com.lhsalliance.aquatic.entities;
 
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
+import com.lhsalliance.aquatic.core.HandlerPlayer;
 import com.lhsalliance.aquatic.core.Main;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -78,7 +79,7 @@ public class Animal
         
         double dist = Math.sqrt(Math.pow(difX, 2) + Math.pow(difZ, 2));
         
-        if (dist < 5 && displayName.equals(Main.game.player.displayName) && difX != 0 && difZ != 0)
+        if (HandlerPlayer.level == 3 && dist < 5 && displayName.equals(Main.game.player.displayName) && difX != 0 && difZ != 0)
         {
             Main.game.mating();
         }

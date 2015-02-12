@@ -48,20 +48,7 @@ public class Anemone extends Hidable
             bacteria++;
         }
         
-        if (dist < 5 && !playHide)
-        {
-            Main.game.hiding();
-            playHide = true;
-        }
-        
-        if(dist < 5)
-        {
-            Main.hide = true;
-        }
-        else
-        {
-            playHide = false;
-        }
+        super.onUpdate(tpf);
         
     }
     

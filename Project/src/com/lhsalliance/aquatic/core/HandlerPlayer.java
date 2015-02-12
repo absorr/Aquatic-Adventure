@@ -17,7 +17,7 @@ public class HandlerPlayer
     //define integers
     public int hunger;
     public int appetite;
-    public int level = 1;
+    public static int level = 1;
     public static int hideCount = 0;
     public static int eatCount = 0;
     public static int distTraveled = 0;
@@ -36,7 +36,7 @@ public class HandlerPlayer
         {
             if(level == 1 && hideCount >= 15 && eatCount >= 15)
                 levelUp();
-            else if(level == 2 && distTraveled >= 300 && eatCount >= 20)
+            else if(level == 2 && distTraveled >= 10000 && eatCount >= 20)
                 levelUp();
             else if(level == 3 && Main.game.mate)
                 levelUp();
@@ -83,7 +83,7 @@ public class HandlerPlayer
                         "/15 | Times Fed = " + eatCount + "/20 " + debug);
             else if (level == 2)
                 objText.setText("Distance Traveled: " + distTraveled + 
-                        "/300 | Times Fed = " + eatCount + "/20 " + debug);
+                        "/10000 | Times Fed = " + eatCount + "/20 " + debug);
             else if (level == 3)
                 objText.setText("Health: 20 " + debug);
             else
