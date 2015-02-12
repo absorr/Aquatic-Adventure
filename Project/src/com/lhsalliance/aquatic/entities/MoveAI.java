@@ -18,25 +18,21 @@ import java.util.Random;
 public class MoveAI implements AI  {
     
     private float radius;
-    
     private int wait = -1;
-     public int xInt = 0; 
-     public int zInt = 0;
+    public int xInt = 0; 
+    public int zInt = 0;
+    
     public MoveAI(float searchRadius)
     {
-        this.radius = searchRadius;
-        
-        
+        this.radius = searchRadius;    
     }
     @Override
     public void onUpdate(float tpf, Animal animal)
     {
         Node node = animal.model.node;
-        Node player = Main.game.player.model.node;
         
         Vector3f posAnimal = node.getLocalTranslation();
-        
-        
+
         Random randomGenerator = new Random();
         int time= (2+ randomGenerator.nextInt(5))*100;
         if (posAnimal.x==xInt && posAnimal.z ==zInt)
@@ -47,8 +43,8 @@ public class MoveAI implements AI  {
         }
         else if (Main.game.ticks%time == 0)
         {
-            xInt = 100 - randomGenerator.nextInt(1000);
-            zInt = 100 -randomGenerator.nextInt(1000);
+            xInt = 100 - randomGenerator.nextInt(400);
+            zInt = 100 -randomGenerator.nextInt(700);
             
         }
         
