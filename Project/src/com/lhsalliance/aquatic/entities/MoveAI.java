@@ -35,7 +35,7 @@ public class MoveAI implements AI  {
 
         Random randomGenerator = new Random();
         int time= (2+ randomGenerator.nextInt(5))*100;
-        if (posAnimal.x==xInt && posAnimal.z ==zInt)
+        if (Math.abs(posAnimal.x-xInt)<5 && Math.abs(posAnimal.z-zInt)<5 )
         {
             xInt = 100 - randomGenerator.nextInt(500);
             zInt = 100 -randomGenerator.nextInt(500);
