@@ -31,7 +31,7 @@
       </panel>
     </layer>
   </screen>
-    <screen id="animal">
+  <screen id="animal">
     <layer id="background" childLayout="center">
     </layer>
     <layer id="foreground" childLayout="horizontal">
@@ -41,7 +41,7 @@
       </panel>
     </layer>
   </screen>
-      <screen id="fin">
+  <screen id="fin">
     <layer id="background" childLayout="center">
     </layer>
     <layer id="foreground" childLayout="horizontal">
@@ -51,8 +51,7 @@
       </panel>
     </layer>
   </screen>
-  </screen>
-      <screen id="win">
+  <screen id="win">
     <layer id="background" childLayout="center">
     </layer>
     <layer id="foreground" childLayout="horizontal">

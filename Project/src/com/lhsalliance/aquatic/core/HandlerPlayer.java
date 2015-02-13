@@ -34,7 +34,7 @@ public class HandlerPlayer
     {
         if (Main.game.isInGame)
         {
-            if(level == 1 && hideCount >= 15 && eatCount >= 15)
+            if(level == 1 && hideCount >= 15 && eatCount >= 10)
                 levelUp();
             else if(level == 2 && distTraveled >= 10000 && eatCount >= 20)
                 levelUp();
@@ -80,12 +80,12 @@ public class HandlerPlayer
             objText.setColor(ColorRGBA.DarkGray);
             if(level == 1)
                 objText.setText("Times Hidden: " + hideCount + 
-                        "/15 | Times Fed = " + eatCount + "/20 " + debug);
+                        "/15 | Times Fed = " + eatCount + "/10 " + debug);
             else if (level == 2)
                 objText.setText("Distance Traveled: " + distTraveled + 
                         "/10000 | Times Fed = " + eatCount + "/20 " + debug);
             else if (level == 3)
-                objText.setText("Health: 20 " + debug);
+                objText.setText("Find another Clownfish to mate with " + debug);
             else
                 objText.setText("YOU WON");
             objText.setLocalTranslation(30, healthText.getLineHeight() * 2, 0);

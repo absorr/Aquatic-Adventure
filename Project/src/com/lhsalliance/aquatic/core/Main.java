@@ -152,27 +152,15 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         initKeys(); // load my custom keybinding
         inputManager.setCursorVisible(true);
         flyCam.setEnabled(true);
-        
-        bgpic = new Picture("Background Picture");
-        bgpic.setImage(assetManager, "Interface/newbg1.png", false);
-        bgpic.setWidth(settings.getWidth());
-        bgpic.setHeight(settings.getHeight());
-        bgpic.setPosition(0,0);
-        bgpic.updateGeometricState();
-        
-        bgvp = renderManager.createPreView("background", cam);
-        bgvp.setClearFlags(true, true, true);
-        bgvp.attachScene(bgpic);
-        viewPort.setClearFlags(false, true, true);
     }
 
     @Override
     public void simpleUpdate(float tpf) {
-        bgpic.updateLogicalState(1);
-        bgpic.updateGeometricState();
         
         if (isInGame)
         {
+            bgpic.updateLogicalState(1);
+            bgpic.updateGeometricState();
             hide = false;
             for (Updatable obj : Updatable.objects) {
                 obj.onUpdate(tpf);
@@ -207,7 +195,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     inputManager.addMapping("Down",   new KeyTrigger(KeyInput.KEY_S));
     
     // Add the names to the action listener.
-    inputManager.addListener(analogListener,"Left", "Right", "Up", "Down");
+    inputManager.addListener(analogListener,"Left", "Right", "Up", "Down", "Space");
 
     }
 
@@ -275,19 +263,9 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
             }
             else
             {
-                if (name.equals("Rotate")) {
-                  player.model.node.rotate(0, value*speed, 0);
-                }
-                if (name.equals("Right")) {
-                  Vector3f v = player.model.node.getLocalTranslation();
-                  player.model.node.setLocalTranslation(v.x + value*speed, v.y, v.z);
-                }
-                if (name.equals("Left")) {
-                  Vector3f v = player.model.node.getLocalTranslation();
-                  player.model.node.setLocalTranslation(v.x - value*speed, v.y, v.z);
-                }
                 if (name.equals("Space")){
-                    openBiomeScreen();
+                    //openBiomeScreen();
+                    btn_Start();
                 }
             }
         } else {
@@ -320,6 +298,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                                                           guiViewPort);
         nifty = niftyDisplay.getNifty();
         nifty.fromXml("Interface/Screen.xml", "start", this);
+        guiViewPort.addProcessor(niftyDisplay);
         
     }
 
@@ -371,13 +350,23 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public void btn_Start()
     {
         //Unload main menu
-        //nifty.exit();
+        nifty.exit();
+        
+        bgpic = new Picture("Background Picture");
+        bgpic.setImage(assetManager, "Interface/newbg1.png", false);
+        bgpic.setWidth(settings.getWidth());
+        bgpic.setHeight(settings.getHeight());
+        bgpic.setPosition(0,0);
+        bgpic.updateGeometricState();
+        
+        bgvp = renderManager.createPreView("background", cam);
+        bgvp.setClearFlags(true, true, true);
+        bgvp.attachScene(bgpic);
+        viewPort.setClearFlags(false, true, true);
         
         //Make the player
         player = AnimalRegistry.getAnimal("Clownfish");
         player.model.loadModel();
-        
-        this.playerHandler.levelUp();
         
         // You must add a light to make the model visible
         DirectionalLight sun = new DirectionalLight();
