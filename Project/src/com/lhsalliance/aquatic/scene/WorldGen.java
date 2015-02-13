@@ -90,7 +90,7 @@ public class WorldGen
             Main.game.getRootNode().attachChild(bgpic);
             
             //Randomly Generate Environment
-            for(int i=1;i<300;i++)
+            for(int i=1;i<200;i++)
             {
                 int x = rand.nextInt(500) + 6;
                 int z = rand.nextInt(500) + 6;
