@@ -69,10 +69,6 @@ public class WorldGen
                 animal.model.loadModel();
                 animal.model.node.setLocalTranslation(x, 0, z);
                 
-                float rotation = rand.nextInt(360)*FastMath.RAD_TO_DEG;
-                
-                animal.model.node.rotate(0, rotation, 0);
-                
                 if ("Great White Shark".equals(animal.displayName) || 
                         "Hammerhead Shark".equals(animal.displayName) || 
                         "Tiger Shark".equals(animal.displayName))
