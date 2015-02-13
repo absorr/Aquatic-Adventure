@@ -44,11 +44,7 @@ public class HelloAssets extends SimpleApplication {
  
         guiNode.detachAllChildren();
         guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
-<<<<<<< HEAD
         InteractionText helloText = new InteractionText(guiFont, false, this);
-=======
-        InteractionText helloText = new InteractionText(guiFont, false);
->>>>>>> origin/master
         helloText.setSize(guiFont.getCharSet().getRenderedSize());
         helloText.setText("Hello World");
         helloText.setLocalTranslation(300, helloText.getLineHeight(), 0);
