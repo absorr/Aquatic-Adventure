@@ -74,7 +74,6 @@ public class WorldGen
                         "Tiger Shark".equals(animal.displayName))
                 {   
                     animal.ai.add(new KillAI(25));
-                    animal.ai.add(new MoveAI(25));
                 }
                 else
                     animal.ai.add(new MoveAI(25));
