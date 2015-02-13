@@ -146,7 +146,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                 new Model("assets/Models/MantaRay/MantaRay.j3o"),
                 50));
         
-        //menuMain();
+        menuMain();
         btn_Start();
         
         initKeys(); // load my custom keybinding
