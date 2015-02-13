@@ -148,7 +148,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                 50));
         
         menuMain();
-        //btn_Start();
+        
         
         initKeys(); // load my custom keybinding
         inputManager.setCursorVisible(true);

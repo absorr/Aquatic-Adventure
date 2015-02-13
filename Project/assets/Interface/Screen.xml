@@ -57,7 +57,7 @@
     <layer id="foreground" childLayout="horizontal">
        
       <panel id="panel_left" width="100%" height="100%" childLayout="vertical" >
-      <image filename="Interface/gameend.png"  width="100%" height="100%"></image>
+      <image filename="Interface/endingscreen.png"  width="100%" height="100%"></image>
       </panel>
     </layer>
   </screen>
