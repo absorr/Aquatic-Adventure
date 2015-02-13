@@ -221,6 +221,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                     player.model.node.setLocalTranslation(v.x + value*10*speed, v.y, v.z);
                     camNode.setLocalTranslation(c.x + value*10*speed, c.y, c.z);
                     player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(90*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
+                    //channel.setAnim("Walk", 0.50f);
+                    //channel.setLoopMode(LoopMode.Loop);
                   }
                   if (name.equals("Left")) {
                     isLeft = true;
@@ -382,6 +384,10 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         //Make the player
         player = AnimalRegistry.getAnimal("Clownfish");
         player.model.loadModel();
+        //control = player.model.node.getControl(AnimControl.class);
+        //control.addListener(this);
+        //channel = control.createChannel();
+        //channel.setAnim("ArmatureAction");
         
         // You must add a light to make the model visible
         DirectionalLight sun = new DirectionalLight();
