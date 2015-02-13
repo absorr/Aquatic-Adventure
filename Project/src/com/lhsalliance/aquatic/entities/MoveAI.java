@@ -51,9 +51,18 @@ public class MoveAI implements AI  {
         float difX = posAnimal.x - xInt;
         float difZ = posAnimal.z - zInt;
         
-        posAnimal.x = posAnimal.x + (difX/100000);
-        posAnimal.z = posAnimal.z + (difZ/100000);
-        
+       if ("Great White Shark".equals(animal.displayName) || 
+                        "Hammerhead Shark".equals(animal.displayName) || 
+                        "Tiger Shark".equals(animal.displayName)) 
+        {
+        posAnimal.x = posAnimal.x + (difX/8000);
+        posAnimal.z = posAnimal.z + (difZ/8000);
+        }
+       else
+        {
+        posAnimal.x = posAnimal.x + (difX/10000);
+        posAnimal.z = posAnimal.z + (difZ/10000);   
+        }
         double dist = Math.sqrt(Math.pow(difX, 2) + Math.pow(difZ, 2));
         
         float angle = (float)Math.atan(Math.abs(difX)/Math.abs(difZ));
@@ -79,9 +88,10 @@ public class MoveAI implements AI  {
         {
             angle = 0;
         }
+            
         node.setLocalRotation(new Quaternion().fromAngleAxis(angle, new Vector3f(0,1,0)));
-            Vector3f forward = node.getLocalRotation().getRotationColumn(2);
-            node.move(forward.divide(4));
+        Vector3f forward = node.getLocalRotation().getRotationColumn(2);
+        node.move(forward.divide(4));
     }
     
 }
