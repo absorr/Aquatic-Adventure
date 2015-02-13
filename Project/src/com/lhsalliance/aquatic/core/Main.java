@@ -66,6 +66,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public boolean mate = false;
     public Model heart;
     public static boolean hide = false;
+    public boolean tutorial = false;
     
     public boolean isRunning=true;
     public boolean isRight=false;
@@ -265,7 +266,18 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
             {
                 if (name.equals("Space")){
                     //openBiomeScreen();
-                    btn_Start();
+                    if (!tutorial)
+                    {
+                        Picture bgpic = new Picture("Background Picture");
+                        bgpic.setImage(Main.game.getAssetManager(), "Interface/Instruction Screen.png", false);
+                        bgpic.setWidth(Main.game.getWidth());
+                        bgpic.setHeight(Main.game.getHeight());
+                        bgpic.setPosition(0,0);
+                        Main.game.getGuiNode().attachChild(bgpic);
+                        tutorial = true;
+                    }
+                    else
+                        btn_Start();
                 }
             }
         } else {
@@ -316,6 +328,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
        nifty.addXml("Interface/Screen.xml");
 
        nifty.gotoScreen("tutorial");
+       tutorial = true;
 
     }
     public void openBiomeScreen() {
@@ -352,6 +365,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     {
         //Unload main menu
         nifty.exit();
+        Main.game.getGuiNode().detachAllChildren();
         
         bgpic = new Picture("Background Picture");
         bgpic.setImage(assetManager, "Interface/newbg1.png", false);

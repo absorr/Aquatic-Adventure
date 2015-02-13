@@ -18,7 +18,7 @@ public class HandlerPlayer
     //define integers
     public int hunger;
     public int appetite;
-    public static int level = 3;
+    public static int level = 1;
     public static int hideCount = 0;
     public static int eatCount = 0;
     public static int distTraveled = 0;
