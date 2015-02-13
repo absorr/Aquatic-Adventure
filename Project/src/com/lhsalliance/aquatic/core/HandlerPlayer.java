@@ -37,7 +37,7 @@ public class HandlerPlayer
         {
             if(level == 1 && hideCount >= 15 && eatCount >= 10)
                 levelUp();
-            else if(level == 2 && distTraveled >= 10000 && eatCount >= 20)
+            else if(level == 2 && distTraveled >= 10000 && eatCount >= 15)
                 levelUp();
             else if(level == 3 && Main.game.mate)
                 levelUp();
@@ -84,7 +84,7 @@ public class HandlerPlayer
                         "/15 | Times Fed = " + eatCount + "/10 " + debug);
             else if (level == 2)
                 objText.setText("Distance Traveled: " + distTraveled + 
-                        "/10000 | Times Fed = " + eatCount + "/20 " + debug);
+                        "/10000 | Times Fed = " + eatCount + "/15 " + debug);
             else if (level == 3)
                 objText.setText("Find another Clownfish to mate with " + debug);
             else
@@ -159,11 +159,51 @@ public class HandlerPlayer
         if (level == 2)
         {
             Main.game.player.age = Animal.AnimalAge.TEEN;
+            Picture bgpic = new Picture("Background Picture");
+                bgpic.setImage(Main.game.getAssetManager(), "Interface/toast-info.png", false);
+                bgpic.setWidth(400);
+                bgpic.setHeight(85);
+                bgpic.setPosition(0, Main.game.getHeight() - 100);
+                Main.game.getGuiNode().attachChild(bgpic);
+
+                BitmapText hideText = new BitmapText(Main.game.getFont(), false);
+                hideText.setSize(Main.game.getFont().getCharSet().getRenderedSize() * 2);
+                hideText.setColor(ColorRGBA.Black);
+                hideText.setText("Congratulations!");
+                hideText.setLocalTranslation(90, Main.game.getHeight() - 25, 0);
+                Main.game.getGuiNode().attachChild(hideText);
+
+                BitmapText hideText2 = new BitmapText(Main.game.getFont(), false);
+                hideText2.setSize(Main.game.getFont().getCharSet().getRenderedSize());
+                hideText2.setColor(ColorRGBA.DarkGray);
+                hideText2.setText("You are now a teen!");
+                hideText2.setLocalTranslation(90,  Main.game.getHeight() - 70, 0);
+                Main.game.getGuiNode().attachChild(hideText2);
         }
         if (level == 3)
         {
             Main.game.mate = true;
             Main.game.player.age = Animal.AnimalAge.ADULT;
+            Picture bgpic = new Picture("Background Picture");
+                bgpic.setImage(Main.game.getAssetManager(), "Interface/toast-info.png", false);
+                bgpic.setWidth(400);
+                bgpic.setHeight(85);
+                bgpic.setPosition(0, Main.game.getHeight() - 100);
+                Main.game.getGuiNode().attachChild(bgpic);
+
+                BitmapText hideText = new BitmapText(Main.game.getFont(), false);
+                hideText.setSize(Main.game.getFont().getCharSet().getRenderedSize() * 2);
+                hideText.setColor(ColorRGBA.Black);
+                hideText.setText("Congratulations!");
+                hideText.setLocalTranslation(90, Main.game.getHeight() - 25, 0);
+                Main.game.getGuiNode().attachChild(hideText);
+
+                BitmapText hideText2 = new BitmapText(Main.game.getFont(), false);
+                hideText2.setSize(Main.game.getFont().getCharSet().getRenderedSize());
+                hideText2.setColor(ColorRGBA.DarkGray);
+                hideText2.setText("You are now an adult!");
+                hideText2.setLocalTranslation(90,  Main.game.getHeight() - 70, 0);
+                Main.game.getGuiNode().attachChild(hideText2);
         }
         if (level > 3)
         {
