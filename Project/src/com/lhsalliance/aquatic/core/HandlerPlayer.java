@@ -6,6 +6,7 @@ package com.lhsalliance.aquatic.core;
 
 import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
+import com.jme3.ui.Picture;
 import com.lhsalliance.aquatic.entities.Animal;
 
 /**
@@ -93,12 +94,33 @@ public class HandlerPlayer
             
             if(Main.game.isHiding())
             {
-                BitmapText hideText = new BitmapText(Main.game.getFont(), false);
+                /*BitmapText hideText = new BitmapText(Main.game.getFont(), false);
                 hideText.setSize(Main.game.getFont().getCharSet().getRenderedSize());
                 hideText.setColor(ColorRGBA.DarkGray);
                 hideText.setText("You are hiding!  If you are in the anemone or the coral, the shark cannot get you!");
                 hideText.setLocalTranslation(10, hideText.getLineHeight()*5, 0);
+                Main.game.getGuiNode().attachChild(hideText);*/
+                
+                Picture bgpic = new Picture("Background Picture");
+                bgpic.setImage(Main.game.getAssetManager(), "Interface/toast-info.png", false);
+                bgpic.setWidth(400);
+                bgpic.setHeight(85);
+                bgpic.setPosition(0, Main.game.getHeight() - 100);
+                Main.game.getGuiNode().attachChild(bgpic);
+
+                BitmapText hideText = new BitmapText(Main.game.getFont(), false);
+                hideText.setSize(Main.game.getFont().getCharSet().getRenderedSize() * 2);
+                hideText.setColor(ColorRGBA.Black);
+                hideText.setText("You are now hiding");
+                hideText.setLocalTranslation(90, Main.game.getHeight() - 25, 0);
                 Main.game.getGuiNode().attachChild(hideText);
+
+                BitmapText hideText2 = new BitmapText(Main.game.getFont(), false);
+                hideText2.setSize(Main.game.getFont().getCharSet().getRenderedSize());
+                hideText2.setColor(ColorRGBA.DarkGray);
+                hideText2.setText("Enemies cannot attack you");
+                hideText2.setLocalTranslation(90,  Main.game.getHeight() - 70, 0);
+                Main.game.getGuiNode().attachChild(hideText2);
             }
         }
     }

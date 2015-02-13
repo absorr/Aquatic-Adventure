@@ -146,8 +146,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                 new Model("assets/Models/MantaRay/MantaRay.j3o"),
                 50));
         
-        //menuMain();
-        btn_Start();
+        menuMain();
+        //btn_Start();
         
         initKeys(); // load my custom keybinding
         inputManager.setCursorVisible(true);
@@ -394,6 +394,16 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public BitmapFont getFont()
     {
         return this.guiFont;
+    }
+    
+    public int getWidth()
+    {
+        return this.settings.getWidth();
+    }
+    
+    public int getHeight()
+    {
+        return this.settings.getHeight();
     }
     
        //age level control methods
