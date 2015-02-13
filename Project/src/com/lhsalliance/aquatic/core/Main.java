@@ -217,16 +217,16 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                     isRight = true;
                     Vector3f v = player.model.node.getLocalTranslation();
                     Vector3f c = camNode.getLocalTranslation();
-                    player.model.node.setLocalTranslation(v.x + value*8*speed, v.y, v.z);
-                    camNode.setLocalTranslation(c.x + value*8*speed, c.y, c.z);
+                    player.model.node.setLocalTranslation(v.x + value*10*speed, v.y, v.z);
+                    camNode.setLocalTranslation(c.x + value*10*speed, c.y, c.z);
                     player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(90*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
                   }
                   if (name.equals("Left")) {
                     isLeft = true;
                     Vector3f v = player.model.node.getLocalTranslation();
                     Vector3f c = camNode.getLocalTranslation();
-                    player.model.node.setLocalTranslation(v.x - value*8*speed, v.y, v.z);
-                    camNode.setLocalTranslation(c.x - value*8*speed, c.y, c.z);
+                    player.model.node.setLocalTranslation(v.x - value*10*speed, v.y, v.z);
+                    camNode.setLocalTranslation(c.x - value*10*speed, c.y, c.z);
                     player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(270*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
                   }
                   if (name.equals("Up")) {
@@ -239,8 +239,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                     isUp = true;
                     Vector3f v = player.model.node.getLocalTranslation();
                     Vector3f c = camNode.getLocalTranslation();
-                    player.model.node.setLocalTranslation(v.x, v.y, v.z + value*8*speed);
-                    camNode.setLocalTranslation(c.x, c.y, c.z + value*8*speed);
+                    player.model.node.setLocalTranslation(v.x, v.y, v.z + value*10*speed);
+                    camNode.setLocalTranslation(c.x, c.y, c.z + value*10*speed);
                     player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(0*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
                   }
                   if (name.equals("Down")) {
@@ -253,8 +253,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                     isDown = true;
                     Vector3f v = player.model.node.getLocalTranslation();
                     Vector3f c = camNode.getLocalTranslation();
-                    player.model.node.setLocalTranslation(v.x, v.y, v.z - value*8*speed);
-                    camNode.setLocalTranslation(c.x, c.y, c.z - value*8*speed);
+                    player.model.node.setLocalTranslation(v.x, v.y, v.z - value*10*speed);
+                    camNode.setLocalTranslation(c.x, c.y, c.z - value*10*speed);
                     player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(180*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
                   }
                   
@@ -337,7 +337,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
        nifty.addXml("Interface/Screen.xml");
 
        nifty.gotoScreen("fin");
-       isRunning = false;
+       
     }
     @Override
     public void onEndScreen() {

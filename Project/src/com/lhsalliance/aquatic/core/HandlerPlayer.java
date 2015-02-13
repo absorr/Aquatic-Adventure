@@ -18,7 +18,7 @@ public class HandlerPlayer
     //define integers
     public int hunger;
     public int appetite;
-    public static int level = 1;
+    public static int level = 3;
     public static int hideCount = 0;
     public static int eatCount = 0;
     public static int distTraveled = 0;
@@ -88,9 +88,13 @@ public class HandlerPlayer
             else if (level == 3)
                 objText.setText("Find another Clownfish to mate with " + debug);
             else
+            {
                 objText.setText("YOU WON");
+                levelUp();
+            }
             objText.setLocalTranslation(30, healthText.getLineHeight() * 2, 0);
             Main.game.getGuiNode().attachChild(objText);
+            
             
             if(Main.game.isHiding())
             {
@@ -207,7 +211,14 @@ public class HandlerPlayer
         }
         if (level > 3)
         {
-            Main.game.nifty.gotoScreen("win");
+            Main.game.getGuiNode().detachAllChildren();
+            
+            Picture bgpic = new Picture("Background Picture");
+            bgpic.setImage(Main.game.getAssetManager(), "Interface/gameend.png", false);
+            bgpic.setWidth(Main.game.getWidth());
+            bgpic.setHeight(Main.game.getHeight());
+            bgpic.setPosition(0,0);
+            Main.game.getGuiNode().attachChild(bgpic);
         }
         hideCount = 0;
         eatCount = 0;
