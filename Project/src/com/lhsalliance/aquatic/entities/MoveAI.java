@@ -91,7 +91,12 @@ public class MoveAI implements AI  {
             
         node.setLocalRotation(new Quaternion().fromAngleAxis(angle, new Vector3f(0,1,0)));
         Vector3f forward = node.getLocalRotation().getRotationColumn(2);
-        node.move(forward.divide(4));
+        if ("Great White Shark".equals(animal.displayName) || 
+                        "Hammerhead Shark".equals(animal.displayName) || 
+                        "Tiger Shark".equals(animal.displayName))
+            node.move(forward.divide(2));
+        else
+            node.move(forward.divide(3));
     }
     
 }
