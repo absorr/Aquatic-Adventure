@@ -68,7 +68,7 @@ public class KillAI implements AI
             {
                 if (Main.game.ticks % 50 == 0)
                 {
-                    Main.game.player.damage(8, animal);
+                    Main.game.player.damage(5, animal);
                 }
             }
         }

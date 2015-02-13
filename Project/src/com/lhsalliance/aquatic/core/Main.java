@@ -337,6 +337,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
        nifty.addXml("Interface/Screen.xml");
 
        nifty.gotoScreen("fin");
+       isRunning = false;
     }
     @Override
     public void onEndScreen() {
