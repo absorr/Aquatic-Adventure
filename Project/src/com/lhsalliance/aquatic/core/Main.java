@@ -194,7 +194,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
       inputManager.addMapping("Right",  new KeyTrigger(KeyInput.KEY_A), new KeyTrigger(KeyInput.KEY_RIGHT));
       inputManager.addMapping("Up",     new KeyTrigger(KeyInput.KEY_W), new KeyTrigger(KeyInput.KEY_UP));
       inputManager.addMapping("Down",   new KeyTrigger(KeyInput.KEY_S), new KeyTrigger(KeyInput.KEY_DOWN));
-      inputManager.addMapping("NE",   new KeyTrigger(KeyInput.KEY_W));
     
     // Add the names to the action listener.
     inputManager.addListener(analogListener,"Left", "Right", "Up", "Down", "Space");
@@ -235,6 +234,12 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                   }
                   if (name.equals("Up")) {
                     isUp = true;
+                    if (isRight) {
+                          player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(45*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
+                      }
+                    if (isLeft) {
+                          player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(315*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
+                      }
                     Vector3f v = player.model.node.getLocalTranslation();
                     Vector3f c = camNode.getLocalTranslation();
                     player.model.node.setLocalTranslation(v.x, v.y, v.z + value*10*speed);
@@ -243,13 +248,30 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                   }
                   if (name.equals("Down")) {
                     isDown = true;
+                    if (isRight) {
+                          player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(135*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
+                      }
+                    if (isLeft) {
+                          player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(225*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
+                      }
                     Vector3f v = player.model.node.getLocalTranslation();
                     Vector3f c = camNode.getLocalTranslation();
                     player.model.node.setLocalTranslation(v.x, v.y, v.z - value*10*speed);
                     camNode.setLocalTranslation(c.x, c.y, c.z - value*10*speed);
                     player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(180*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
                   }
-                  
+                  if (!name.equals("Right")) {
+                    isRight = false;
+                  }
+                  if (!name.equals("Left")) {
+                    isLeft = false;
+                  }
+                  if (!name.equals("Up")) {
+                    isUp = false;
+                  }
+                  if (!name.equals("Down")) {
+                    isDown = false;
+                  }
                   if(isLeft || isRight || isUp || isDown)
                       HandlerPlayer.distTraveled++;
             }
