@@ -190,10 +190,11 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
       // You can map one or several inputs to one named action
       inputManager.addMapping("Pause",  new KeyTrigger(KeyInput.KEY_ESCAPE));
       inputManager.addMapping("Space", new KeyTrigger(KeyInput.KEY_SPACE));
-      inputManager.addMapping("Left",   new KeyTrigger(KeyInput.KEY_D));
-    inputManager.addMapping("Right",  new KeyTrigger(KeyInput.KEY_A));
-    inputManager.addMapping("Up",     new KeyTrigger(KeyInput.KEY_W));
-    inputManager.addMapping("Down",   new KeyTrigger(KeyInput.KEY_S));
+      inputManager.addMapping("Left",   new KeyTrigger(KeyInput.KEY_D), new KeyTrigger(KeyInput.KEY_LEFT));
+      inputManager.addMapping("Right",  new KeyTrigger(KeyInput.KEY_A), new KeyTrigger(KeyInput.KEY_RIGHT));
+      inputManager.addMapping("Up",     new KeyTrigger(KeyInput.KEY_W), new KeyTrigger(KeyInput.KEY_UP));
+      inputManager.addMapping("Down",   new KeyTrigger(KeyInput.KEY_S), new KeyTrigger(KeyInput.KEY_DOWN));
+      inputManager.addMapping("NE",   new KeyTrigger(KeyInput.KEY_W));
     
     // Add the names to the action listener.
     inputManager.addListener(analogListener,"Left", "Right", "Up", "Down", "Space");
@@ -233,12 +234,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                     player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(270*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
                   }
                   if (name.equals("Up")) {
-                      if(isRight){
-                          player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(45*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
-                      }
-                      if(isLeft){
-                          player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(315*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
-                      }
                     isUp = true;
                     Vector3f v = player.model.node.getLocalTranslation();
                     Vector3f c = camNode.getLocalTranslation();
@@ -247,12 +242,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                     player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(0*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
                   }
                   if (name.equals("Down")) {
-                      if(isRight){
-                          player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(135*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
-                      }
-                      if(isLeft){
-                          player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(225*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
-                      }
                     isDown = true;
                     Vector3f v = player.model.node.getLocalTranslation();
                     Vector3f c = camNode.getLocalTranslation();
