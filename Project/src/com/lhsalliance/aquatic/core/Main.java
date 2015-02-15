@@ -190,13 +190,13 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
       // You can map one or several inputs to one named action
       inputManager.addMapping("Pause",  new KeyTrigger(KeyInput.KEY_ESCAPE));
       inputManager.addMapping("Space", new KeyTrigger(KeyInput.KEY_SPACE));
-      inputManager.addMapping("Left",   new KeyTrigger(KeyInput.KEY_D), new KeyTrigger(KeyInput.KEY_LEFT));
-      inputManager.addMapping("Right",  new KeyTrigger(KeyInput.KEY_A), new KeyTrigger(KeyInput.KEY_RIGHT));
+      inputManager.addMapping("Left",   new KeyTrigger(KeyInput.KEY_D), new KeyTrigger(KeyInput.KEY_RIGHT));
+      inputManager.addMapping("Right",  new KeyTrigger(KeyInput.KEY_A), new KeyTrigger(KeyInput.KEY_LEFT));
       inputManager.addMapping("Up",     new KeyTrigger(KeyInput.KEY_W), new KeyTrigger(KeyInput.KEY_UP));
       inputManager.addMapping("Down",   new KeyTrigger(KeyInput.KEY_S), new KeyTrigger(KeyInput.KEY_DOWN));
     
     // Add the names to the action listener.
-    inputManager.addListener(analogListener,"Left", "Right", "Up", "Down", "Space");
+   inputManager.addListener(analogListener,"Left", "Right", "Up", "Down", "Space");
 
     }
 
