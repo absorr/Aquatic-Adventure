@@ -37,14 +37,25 @@ public class MoveAI implements AI  {
         int time= (2+ randomGenerator.nextInt(5))*100;
         if (Math.abs(posAnimal.x-xInt)<5 && Math.abs(posAnimal.z-zInt)<5 )
         {
-            xInt = 100 - randomGenerator.nextInt(500);
-            zInt = 100 -randomGenerator.nextInt(500);
+            xInt = randomGenerator.nextInt(Main.worldRadius);
+            zInt = randomGenerator.nextInt(Main.worldRadius);
             
+            if(randomGenerator.nextBoolean())
+                xInt *= -1;
+            
+            if(randomGenerator.nextBoolean())
+                zInt *= -1;
         }
         else if (Main.game.ticks%time == 0)
         {
-            xInt = 100 - randomGenerator.nextInt(400);
-            zInt = 100 -randomGenerator.nextInt(700);
+            xInt = randomGenerator.nextInt(Main.worldRadius);
+            zInt = randomGenerator.nextInt(Main.worldRadius);
+            
+            if(randomGenerator.nextBoolean())
+                xInt *= -1;
+            
+            if(randomGenerator.nextBoolean())
+                zInt *= -1;
             
         }
         

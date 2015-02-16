@@ -164,7 +164,7 @@ public class HandlerPlayer
         {
             Main.game.player.age = Animal.AnimalAge.TEEN;
             Picture bgpic = new Picture("Background Picture");
-                bgpic.setImage(Main.game.getAssetManager(), "Interface/toast-info.png", false);
+                bgpic.setImage(Main.game.getAssetManager(), "Interface/toast.png", false);
                 bgpic.setWidth(400);
                 bgpic.setHeight(85);
                 bgpic.setPosition(0, Main.game.getHeight() - 100);
@@ -189,7 +189,7 @@ public class HandlerPlayer
             Main.game.mate = false;
             Main.game.player.age = Animal.AnimalAge.ADULT;
             Picture bgpic = new Picture("Background Picture");
-                bgpic.setImage(Main.game.getAssetManager(), "Interface/toast-info.png", false);
+                bgpic.setImage(Main.game.getAssetManager(), "Interface/toast.png", false);
                 bgpic.setWidth(400);
                 bgpic.setHeight(85);
                 bgpic.setPosition(0, Main.game.getHeight() - 100);

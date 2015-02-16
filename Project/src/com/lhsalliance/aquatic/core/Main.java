@@ -62,6 +62,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public Animal player;
     public HandlerPlayer playerHandler = new HandlerPlayer();
     
+    public static int worldRadius = 500;
+    
      //define age control bools
     public boolean mate = false;
     public Model heart;
@@ -252,9 +254,9 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         if (isRunning) {
             if (isInGame)
             {
-                if (name.equals("Right")) {
+                Vector3f v = player.model.node.getLocalTranslation();
+                if (name.equals("Right") && Math.abs(v.x + value*10*speed) < worldRadius - 50) {
                     isRight = true;
-                    Vector3f v = player.model.node.getLocalTranslation();
                     Vector3f c = camNode.getLocalTranslation();
                     player.model.node.setLocalTranslation(v.x + value*10*speed, v.y, v.z);
                     camNode.setLocalTranslation(c.x + value*10*speed, c.y, c.z);
@@ -262,15 +264,14 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                     //channel.setAnim("Walk", 0.50f);
                     //channel.setLoopMode(LoopMode.Loop);
                   }
-                  if (name.equals("Left")) {
+                  if (name.equals("Left") && Math.abs(v.x - value*10*speed) < worldRadius - 50) {
                     isLeft = true;
-                    Vector3f v = player.model.node.getLocalTranslation();
                     Vector3f c = camNode.getLocalTranslation();
                     player.model.node.setLocalTranslation(v.x - value*10*speed, v.y, v.z);
                     camNode.setLocalTranslation(c.x - value*10*speed, c.y, c.z);
                     player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(270*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
                   }
-                  if (name.equals("Up")) {
+                  if (name.equals("Up") && Math.abs(v.z + value*10*speed) < worldRadius - 50) {
                     isUp = true;
                     if (isRight) {
                           player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(45*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
@@ -278,13 +279,12 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                     if (isLeft) {
                           player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(315*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
                       }
-                    Vector3f v = player.model.node.getLocalTranslation();
                     Vector3f c = camNode.getLocalTranslation();
                     player.model.node.setLocalTranslation(v.x, v.y, v.z + value*10*speed);
                     camNode.setLocalTranslation(c.x, c.y, c.z + value*10*speed);
                     player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(0*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
                   }
-                  if (name.equals("Down")) {
+                  if (name.equals("Down") && Math.abs(v.z - value*10*speed) < worldRadius - 50) {
                     isDown = true;
                     if (isRight) {
                           player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(135*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
@@ -292,7 +292,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                     if (isLeft) {
                           player.model.node.setLocalRotation(new Quaternion().fromAngleAxis(225*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
                       }
-                    Vector3f v = player.model.node.getLocalTranslation();
                     Vector3f c = camNode.getLocalTranslation();
                     player.model.node.setLocalTranslation(v.x, v.y, v.z - value*10*speed);
                     camNode.setLocalTranslation(c.x, c.y, c.z - value*10*speed);
