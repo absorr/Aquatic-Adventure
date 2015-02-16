@@ -82,9 +82,9 @@ public class KillAI implements AI
             Vector3f forward = node.getLocalRotation().getRotationColumn(2);
             node.move(forward.divide(4));
         }
-        else if(Main.hide)
+        else if(Main.hide && dist < this.radius + 10)
         {
-            if(wait == -1)
+            if(wait == -1 && dist < this.radius)
             {
                 wait = 100;
             }
@@ -92,21 +92,20 @@ public class KillAI implements AI
             {
                 wait--;
             }
-            else if (wait == 0 && dist < this.radius)
+            else if (wait == 0)
             {
                 node.setLocalRotation(new Quaternion().fromAngleAxis(angle + 180*FastMath.DEG_TO_RAD, new Vector3f(0,1,0)));
                 Vector3f forward = node.getLocalRotation().getRotationColumn(2);
                 node.move(forward.divide(4));
             }
-            else if (wait == 0)
-            {
-                wait = -1;
-            }
             else
                 moveAI(animal);
         }
         else
+        {
             moveAI(animal);
+            wait = -1;
+        }
     }
     
     public void moveAI(Animal animal)

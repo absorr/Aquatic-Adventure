@@ -74,6 +74,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public boolean isUp=false;
     public boolean isDown=false;
     public boolean isInGame = false;
+    public boolean isLoading = false;
+    public boolean isLoaded = false;
     
     private AnimChannel channel;
     private AnimControl control;
@@ -85,6 +87,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public Node movementNode = new Node();
     public ViewPort bgvp;
     public Picture bgpic;
+    public BitmapText loadText;
     
     public int ticks = 0;
     
@@ -157,8 +160,18 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
 
     @Override
     public void simpleUpdate(float tpf) {
+        if (tutorial && isLoading)
+        {
+            loadGame();
+            loadText.setText("Press SPACE to continue.");
+            isLoading = false;
+        }
+        else if (tutorial)
+        {
+            isLoading = true;
+        }
         
-        if (isInGame)
+        if (isInGame && player != null)
         {
             bgpic.updateLogicalState(1);
             bgpic.updateGeometricState();
@@ -173,9 +186,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                 Animal ani = (Animal) itr.next();
                 ani.update(tpf);
             }
+            playerHandler.update(tpf);
         }
-        
-        playerHandler.update(tpf);
         
         ticks++;
     }
@@ -196,7 +208,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
       inputManager.addMapping("Down",   new KeyTrigger(KeyInput.KEY_S), new KeyTrigger(KeyInput.KEY_DOWN));
     
     // Add the names to the action listener.
-   inputManager.addListener(analogListener,"Left", "Right", "Up", "Down", "Space");
+   inputManager.addListener(analogListener,"Left", "Right", "Up", "Down");
+   inputManager.addListener(actionListener,"Space");
 
     }
 
@@ -204,6 +217,31 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
       public void onAction(String name, boolean keyPressed, float tpf) {
         if (name.equals("Pause") && !keyPressed) {
           isRunning = !isRunning;
+        }
+        
+        if (name.equals("Space") && !keyPressed){
+            System.out.println(tutorial + " " + isLoaded);
+            if (!tutorial && !isLoaded)
+            {
+                Picture tutpic = new Picture("Tutorial Picture");
+                tutpic.setImage(Main.game.getAssetManager(), "Interface/Instruction Screen.png", false);
+                tutpic.setWidth(Main.game.getWidth());
+                tutpic.setHeight(Main.game.getHeight());
+                tutpic.setPosition(0,0);
+                Main.game.getGuiNode().attachChild(tutpic);
+                
+                //Add loaded text
+                loadText = new BitmapText(Main.game.getFont(), false);
+                loadText.setSize(Main.game.getFont().getCharSet().getRenderedSize() * 2);
+                loadText.setColor(new ColorRGBA(120f, 74f, 158f, 1f));
+                loadText.setText("Loading...");
+                loadText.setLocalTranslation(30, loadText.getLineHeight() + 30, 0);
+                Main.game.getGuiNode().attachChild(loadText);
+                
+                tutorial = true;
+            }
+            else if(tutorial && isLoaded)
+                Main.game.startGame();
         }
         
       }
@@ -274,24 +312,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                   }
                   if(isLeft || isRight || isUp || isDown)
                       HandlerPlayer.distTraveled++;
-            }
-            else
-            {
-                if (name.equals("Space")){
-                    //openBiomeScreen();
-                    if (!tutorial)
-                    {
-                        Picture bgpic = new Picture("Background Picture");
-                        bgpic.setImage(Main.game.getAssetManager(), "Interface/Instruction Screen.png", false);
-                        bgpic.setWidth(Main.game.getWidth());
-                        bgpic.setHeight(Main.game.getHeight());
-                        bgpic.setPosition(0,0);
-                        Main.game.getGuiNode().attachChild(bgpic);
-                        tutorial = true;
-                    }
-                    else
-                        btn_Start();
-                }
             }
         } else {
           System.out.println("Press P to unpause.");
@@ -374,7 +394,43 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
      * Button Functions
      */
     
-    public void btn_Start()
+    public void loadGame()
+    {
+        if (!isLoaded)
+        {
+            //Make the player
+            player = AnimalRegistry.getAnimal("Clownfish");
+            player.model.loadModel();
+            //control = player.model.node.getControl(AnimControl.class);
+            //control.addListener(this);
+            //channel = control.createChannel();
+            //channel.setAnim("ArmatureAction");
+
+            // You must add a light to make the model visible
+            DirectionalLight sun = new DirectionalLight();
+            sun.setDirection(new Vector3f(-0.8f, -0.7f, 2.0f));
+            rootNode.addLight(sun);
+
+            //create the camera Node
+            camNode = new CameraNode("Camera Node", cam);
+            //This mode means that camera copies the movements of the target:
+            camNode.setControlDir(ControlDirection.SpatialToCamera);
+            //Attach the camNode to the target:
+            rootNode.attachChild(movementNode);
+            movementNode.attachChild(camNode);
+            movementNode.attachChild(player.model.node);
+            //Move camNode, e.g. behind and above the target:
+            camNode.setLocalTranslation(new Vector3f(0, 50, -50));
+            //Rotate the camNode to look at the target:
+            camNode.lookAt(player.model.node.getLocalTranslation(), Vector3f.UNIT_Y);
+
+            WorldGen.generate();
+
+            isLoaded = true;
+        }
+    }
+    
+    public void startGame()
     {
         //Unload main menu
         nifty.exit();
@@ -391,34 +447,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         bgvp.setClearFlags(true, true, true);
         bgvp.attachScene(bgpic);
         viewPort.setClearFlags(false, true, true);
-        
-        //Make the player
-        player = AnimalRegistry.getAnimal("Clownfish");
-        player.model.loadModel();
-        //control = player.model.node.getControl(AnimControl.class);
-        //control.addListener(this);
-        //channel = control.createChannel();
-        //channel.setAnim("ArmatureAction");
-        
-        // You must add a light to make the model visible
-        DirectionalLight sun = new DirectionalLight();
-        sun.setDirection(new Vector3f(-0.8f, -0.7f, 2.0f));
-        rootNode.addLight(sun);
-        
-        //create the camera Node
-        camNode = new CameraNode("Camera Node", cam);
-        //This mode means that camera copies the movements of the target:
-        camNode.setControlDir(ControlDirection.SpatialToCamera);
-        //Attach the camNode to the target:
-        rootNode.attachChild(movementNode);
-        movementNode.attachChild(camNode);
-        movementNode.attachChild(player.model.node);
-        //Move camNode, e.g. behind and above the target:
-        camNode.setLocalTranslation(new Vector3f(0, 50, -50));
-        //Rotate the camNode to look at the target:
-        camNode.lookAt(player.model.node.getLocalTranslation(), Vector3f.UNIT_Y);
-        
-        WorldGen.generate();
         
         isInGame = true;
     }
