@@ -41,7 +41,8 @@ public class HUD extends Updatable
         healthText.setSize(Main.game.getFont().getCharSet().getRenderedSize() * 2);
         healthText.setColor(ColorRGBA.DarkGray);
         healthText.setText("Health: " + Main.game.player.getHealth() + "/"+Main.game.player.maxHealth +
-                "     Hunger: " + Main.game.playerHandler.hunger + "/" + Main.game.playerHandler.appetite);
+                "     Hunger: " + Main.game.playerHandler.hunger + "/" + Main.game.playerHandler.appetite +
+                "Age : " + Main.game.player.age);
         healthText.setLocalTranslation(30, healthText.getLineHeight(), 0);
         Main.game.getGuiNode().attachChild(healthText);
         
