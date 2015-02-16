@@ -108,17 +108,6 @@ public class HandlerPlayer
             Main.game.player.age = Animal.AnimalAge.ADULT;
             HUD.setToast(HUD.ToastType.OTHER, "Aged up", "You are now an adult", 100);
         }
-        if (level > 3)
-        {
-            Main.game.getGuiNode().detachAllChildren();
-            
-            Picture bgpic = new Picture("Background Picture");
-            bgpic.setImage(Main.game.getAssetManager(), "Interface/gameend.png", false);
-            bgpic.setWidth(Main.game.getWidth());
-            bgpic.setHeight(Main.game.getHeight());
-            bgpic.setPosition(0,0);
-            Main.game.getGuiNode().attachChild(bgpic);
-        }
         hideCount = 0;
         eatCount = 0;
     } 

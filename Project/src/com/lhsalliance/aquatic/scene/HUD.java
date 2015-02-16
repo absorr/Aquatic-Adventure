@@ -7,6 +7,7 @@ package com.lhsalliance.aquatic.scene;
 import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
 import com.jme3.ui.Picture;
+import com.lhsalliance.aquatic.core.HandlerPlayer;
 import static com.lhsalliance.aquatic.core.HandlerPlayer.debug;
 import static com.lhsalliance.aquatic.core.HandlerPlayer.distTraveled;
 import static com.lhsalliance.aquatic.core.HandlerPlayer.eatCount;
@@ -97,6 +98,18 @@ public class HUD extends Updatable
             Main.game.getGuiNode().attachChild(hideText2);
             
             toastTimer--;
+        }
+        
+        if(HandlerPlayer.level > 3)
+        {
+            Main.game.getGuiNode().detachAllChildren();
+            
+            Picture bgpic = new Picture("Win Picture");
+            bgpic.setImage(Main.game.getAssetManager(), "Interface/endingscreen.png", false);
+            bgpic.setWidth(Main.game.getWidth());
+            bgpic.setHeight(Main.game.getHeight());
+            bgpic.setPosition(0,0);
+            Main.game.getGuiNode().attachChild(bgpic);
         }
     }
         
