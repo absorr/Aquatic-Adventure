@@ -451,10 +451,6 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         viewPort.setClearFlags(false, true, true);
         
         isInGame = true;
-        
-        playerHandler.levelUp();
-        playerHandler.levelUp();
-        playerHandler.levelUp();
     }
     
     public BitmapFont getFont()

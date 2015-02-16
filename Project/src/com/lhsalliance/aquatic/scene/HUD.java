@@ -4,6 +4,7 @@
  */
 package com.lhsalliance.aquatic.scene;
 
+import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
 import com.jme3.ui.Picture;
@@ -40,10 +41,25 @@ public class HUD extends Updatable
         healthText.setSize(Main.game.getFont().getCharSet().getRenderedSize() * 2);
         healthText.setColor(ColorRGBA.DarkGray);
         healthText.setText("Health: " + Main.game.player.getHealth() + "/"+Main.game.player.maxHealth +
-                "     Hunger: " + Main.game.playerHandler.hunger + "/" + Main.game.playerHandler.appetite +
-                "     Age: " + Main.game.player.age);
+                "     Hunger: " + Main.game.playerHandler.hunger + "/" + Main.game.playerHandler.appetite);
         healthText.setLocalTranslation(30, healthText.getLineHeight(), 0);
         Main.game.getGuiNode().attachChild(healthText);
+        
+        //Age Icon
+        String ageIcoSrc;
+        if(level == 1)
+            ageIcoSrc = "Interface/fishbaby.png";
+        else if(level == 2)
+            ageIcoSrc = "Interface/fishadolescent.png";
+        else
+            ageIcoSrc = "Interface/fishadult.png";
+        
+        Picture ageIco = new Picture("Age Icon");
+        ageIco.setImage(Main.game.getAssetManager(), ageIcoSrc, false);
+        ageIco.setWidth(150);
+        ageIco.setHeight(100);
+        ageIco.setPosition(Main.game.getWidth() - 150, Main.game.getHeight() - 100);
+        Main.game.getGuiNode().attachChild(ageIco);
 
         //Add objectives
         BitmapText objText = new BitmapText(Main.game.getFont(), false);
