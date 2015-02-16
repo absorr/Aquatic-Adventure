@@ -8,6 +8,8 @@ import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
 import com.jme3.ui.Picture;
 import com.lhsalliance.aquatic.entities.Animal;
+import com.lhsalliance.aquatic.scene.HUD;
+import com.lhsalliance.aquatic.scene.HUD;
 
 /**
  *
@@ -61,71 +63,6 @@ public class HandlerPlayer
             {
                 Main.game.player.addHealth(2);
             }
-            
-            //Clear HUD
-            Main.game.getGuiNode().detachAllChildren();
-            
-            //Add health text
-            BitmapText healthText = new BitmapText(Main.game.getFont(), false);
-            healthText.setSize(Main.game.getFont().getCharSet().getRenderedSize() * 2);
-            healthText.setColor(ColorRGBA.DarkGray);
-            healthText.setText("Health: " + Main.game.player.getHealth() + "/"+Main.game.player.maxHealth +
-                    "     Hunger: " + hunger + "/" + appetite +
-                    "     Age: " + Main.game.player.age);
-            healthText.setLocalTranslation(30, healthText.getLineHeight(), 0);
-            Main.game.getGuiNode().attachChild(healthText);
-            
-            //Add objectives
-            BitmapText objText = new BitmapText(Main.game.getFont(), false);
-            objText.setSize(Main.game.getFont().getCharSet().getRenderedSize());
-            objText.setColor(ColorRGBA.DarkGray);
-            if(level == 1)
-                objText.setText("Times Hidden: " + hideCount + 
-                        "/15 | Times Fed = " + eatCount + "/10 " + debug);
-            else if (level == 2)
-                objText.setText("Distance Traveled: " + distTraveled + 
-                        "/10000 | Times Fed = " + eatCount + "/15 " + debug);
-            else if (level == 3)
-                objText.setText("Find another Clownfish to mate with " + debug);
-            else
-            {
-                objText.setText("YOU WON");
-                levelUp();
-            }
-            objText.setLocalTranslation(30, healthText.getLineHeight() * 2, 0);
-            Main.game.getGuiNode().attachChild(objText);
-            
-            
-            if(Main.game.isHiding())
-            {
-                /*BitmapText hideText = new BitmapText(Main.game.getFont(), false);
-                hideText.setSize(Main.game.getFont().getCharSet().getRenderedSize());
-                hideText.setColor(ColorRGBA.DarkGray);
-                hideText.setText("You are hiding!  If you are in the anemone or the coral, the shark cannot get you!");
-                hideText.setLocalTranslation(10, hideText.getLineHeight()*5, 0);
-                Main.game.getGuiNode().attachChild(hideText);*/
-                
-                Picture bgpic = new Picture("Background Picture");
-                bgpic.setImage(Main.game.getAssetManager(), "Interface/toast-info.png", false);
-                bgpic.setWidth(400);
-                bgpic.setHeight(85);
-                bgpic.setPosition(0, Main.game.getHeight() - 100);
-                Main.game.getGuiNode().attachChild(bgpic);
-
-                BitmapText hideText = new BitmapText(Main.game.getFont(), false);
-                hideText.setSize(Main.game.getFont().getCharSet().getRenderedSize() * 2);
-                hideText.setColor(ColorRGBA.Black);
-                hideText.setText("You are now hiding");
-                hideText.setLocalTranslation(90, Main.game.getHeight() - 25, 0);
-                Main.game.getGuiNode().attachChild(hideText);
-
-                BitmapText hideText2 = new BitmapText(Main.game.getFont(), false);
-                hideText2.setSize(Main.game.getFont().getCharSet().getRenderedSize());
-                hideText2.setColor(ColorRGBA.DarkGray);
-                hideText2.setText("Enemies cannot attack you");
-                hideText2.setLocalTranslation(90,  Main.game.getHeight() - 70, 0);
-                Main.game.getGuiNode().attachChild(hideText2);
-            }
         }
     }
     
@@ -163,51 +100,13 @@ public class HandlerPlayer
         if (level == 2)
         {
             Main.game.player.age = Animal.AnimalAge.TEEN;
-            Picture bgpic = new Picture("Background Picture");
-                bgpic.setImage(Main.game.getAssetManager(), "Interface/toast.png", false);
-                bgpic.setWidth(400);
-                bgpic.setHeight(85);
-                bgpic.setPosition(0, Main.game.getHeight() - 100);
-                Main.game.getGuiNode().attachChild(bgpic);
-
-                BitmapText hideText = new BitmapText(Main.game.getFont(), false);
-                hideText.setSize(Main.game.getFont().getCharSet().getRenderedSize() * 2);
-                hideText.setColor(ColorRGBA.Black);
-                hideText.setText("Congratulations!");
-                hideText.setLocalTranslation(90, Main.game.getHeight() - 25, 0);
-                Main.game.getGuiNode().attachChild(hideText);
-
-                BitmapText hideText2 = new BitmapText(Main.game.getFont(), false);
-                hideText2.setSize(Main.game.getFont().getCharSet().getRenderedSize());
-                hideText2.setColor(ColorRGBA.DarkGray);
-                hideText2.setText("You are now a teen!");
-                hideText2.setLocalTranslation(90,  Main.game.getHeight() - 70, 0);
-                Main.game.getGuiNode().attachChild(hideText2);
+            HUD.setToast(HUD.ToastType.OTHER, "Aged up", "You are now a teen", 100);
         }
         if (level == 3)
         {
             Main.game.mate = false;
             Main.game.player.age = Animal.AnimalAge.ADULT;
-            Picture bgpic = new Picture("Background Picture");
-                bgpic.setImage(Main.game.getAssetManager(), "Interface/toast.png", false);
-                bgpic.setWidth(400);
-                bgpic.setHeight(85);
-                bgpic.setPosition(0, Main.game.getHeight() - 100);
-                Main.game.getGuiNode().attachChild(bgpic);
-
-                BitmapText hideText = new BitmapText(Main.game.getFont(), false);
-                hideText.setSize(Main.game.getFont().getCharSet().getRenderedSize() * 2);
-                hideText.setColor(ColorRGBA.Black);
-                hideText.setText("Congratulations!");
-                hideText.setLocalTranslation(90, Main.game.getHeight() - 25, 0);
-                Main.game.getGuiNode().attachChild(hideText);
-
-                BitmapText hideText2 = new BitmapText(Main.game.getFont(), false);
-                hideText2.setSize(Main.game.getFont().getCharSet().getRenderedSize());
-                hideText2.setColor(ColorRGBA.DarkGray);
-                hideText2.setText("You are now an adult!");
-                hideText2.setLocalTranslation(90,  Main.game.getHeight() - 70, 0);
-                Main.game.getGuiNode().attachChild(hideText2);
+            HUD.setToast(HUD.ToastType.OTHER, "Aged up", "You are now an adult", 100);
         }
         if (level > 3)
         {

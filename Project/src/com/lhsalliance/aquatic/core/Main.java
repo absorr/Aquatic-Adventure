@@ -39,6 +39,7 @@ import com.lhsalliance.aquatic.entities.Model;
 import com.lhsalliance.aquatic.entities.Updatable;
 import com.lhsalliance.aquatic.scene.Biome;
 import com.lhsalliance.aquatic.scene.BiomeRegistry;
+import com.lhsalliance.aquatic.scene.HUD;
 import com.lhsalliance.aquatic.scene.WorldGen;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
@@ -61,6 +62,8 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     
     public Animal player;
     public HandlerPlayer playerHandler = new HandlerPlayer();
+    
+    public HUD hud = new HUD();
     
     public static int worldRadius = 500;
     
@@ -483,6 +486,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public void hiding()
     {
         hide = true;
+        HUD.setToast(HUD.ToastType.INFO, "You are hiding", "Enemies cannot see you now", 100);
     }
     public boolean isHiding()
     {

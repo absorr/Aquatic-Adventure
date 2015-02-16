@@ -11,7 +11,6 @@ import com.jme3.scene.Node;
 import com.lhsalliance.aquatic.core.HandlerPlayer;
 import com.lhsalliance.aquatic.core.Main;
 import static com.lhsalliance.aquatic.entities.Updatable.objects;
-import com.lhsalliance.aquatic.scene.ToastAlert;
 
 /**
  *
@@ -22,7 +21,6 @@ public class Hidable extends Updatable
     public boolean playHide = false;
     public Model model;
     public int timesHidden = 0;
-    public ToastAlert hideInfo = new ToastAlert("", "", ToastAlert.ToastType.INFO);
     
     public Hidable(Model safety)
     {
@@ -47,7 +45,6 @@ public class Hidable extends Updatable
         if (dist < 5 && !playHide)
         {
             Main.game.hiding();
-            hideInfo.show(200);
             if (timesHidden < 3)
                 HandlerPlayer.hideCount += 1;
             playHide = true;
