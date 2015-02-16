@@ -186,7 +186,7 @@ public class HandlerPlayer
         }
         if (level == 3)
         {
-            Main.game.mate = true;
+            Main.game.mate = false;
             Main.game.player.age = Animal.AnimalAge.ADULT;
             Picture bgpic = new Picture("Background Picture");
                 bgpic.setImage(Main.game.getAssetManager(), "Interface/toast-info.png", false);
