@@ -81,6 +81,7 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public boolean isInGame = false;
     public boolean isLoading = false;
     public boolean isLoaded = false;
+    public boolean isStarted = false;
     
     private AnimChannel channel;
     private AnimControl control;
@@ -245,8 +246,15 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
                 
                 tutorial = true;
             }
-            else if(tutorial && isLoaded)
+            
+            else if(tutorial && isLoaded && !isStarted)
+            {
                 Main.game.startGame();
+                isStarted = true;
+            }
+            else if(tutorial && isLoaded && isStarted)
+                System.out.println("Emily is right");
+            
         }
         
       }
