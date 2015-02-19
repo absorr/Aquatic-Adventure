@@ -30,7 +30,7 @@ public class WorldGen
             Object[] animals = AnimalRegistry.getAnimalList();
             
             //Randomly Generate Animals
-            for (int i=1;i<500;i++)
+            for (int i=1;i<350;i++)
             {
                 int x = rand.nextInt(500) + 10;
                 int z = rand.nextInt(500) + 10;

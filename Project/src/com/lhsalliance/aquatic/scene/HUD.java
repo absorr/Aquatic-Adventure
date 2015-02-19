@@ -51,14 +51,14 @@ public class HUD extends Updatable
         healthText.setText("Health: " + Main.game.player.getHealth() + "/"+Main.game.player.maxHealth);
                 //"     Hunger: " + Main.game.playerHandler.hunger + "/" + Main.game.playerHandler.appetite +
                 //"Age : " + Main.game.player.age);
-        healthText.setLocalTranslation(30, healthText.getLineHeight()+ 30, 0);
+        healthText.setLocalTranslation(30, healthText.getLineHeight()+ 50, 0);
         Main.game.getGuiNode().attachChild(healthText);
         
         Picture barHealth = new Picture("Health Bar");
         barHealth.setImage(Main.game.getAssetManager(), "Interface/barHealth.png", false);
         barHealth.setWidth(200 * (((float)Main.game.player.getHealth()) / ((float)Main.game.player.maxHealth)));
         barHealth.setHeight(20);
-        barHealth.setPosition(30, 10);
+        barHealth.setPosition(30, 20);
         Main.game.getGuiNode().attachChild(barHealth);
         
         //Add hunger text
@@ -66,14 +66,14 @@ public class HUD extends Updatable
         hungerText.setSize(Main.game.getFont().getCharSet().getRenderedSize() * 1.5f);
         hungerText.setColor(ColorRGBA.DarkGray);
         hungerText.setText("Hunger: " + Main.game.playerHandler.hunger + "/" + Main.game.playerHandler.appetite);
-        hungerText.setLocalTranslation(250, healthText.getLineHeight()+ 30, 0);
+        hungerText.setLocalTranslation(250, healthText.getLineHeight()+ 50, 0);
         Main.game.getGuiNode().attachChild(hungerText);
         
         Picture barHunger = new Picture("Hunger Bar");
         barHunger.setImage(Main.game.getAssetManager(), "Interface/barHunger.png", false);
         barHunger.setWidth(200 * (((float)Main.game.playerHandler.hunger) / ((float)Main.game.playerHandler.appetite)));
         barHunger.setHeight(20);
-        barHunger.setPosition(250, 10);
+        barHunger.setPosition(250, 20);
         Main.game.getGuiNode().attachChild(barHunger);
         
         System.out.println(Main.game.playerHandler.hunger / Main.game.playerHandler.appetite);
@@ -102,7 +102,7 @@ public class HUD extends Updatable
         ageIco.setPosition(Main.game.getWidth() - 100, 40);
         Main.game.getGuiNode().attachChild(ageIco);
 
-        //Add objectives
+        //Objectives
         BitmapText objText = new BitmapText(Main.game.getFont(), false);
         objText.setSize(Main.game.getFont().getCharSet().getRenderedSize());
         objText.setColor(ColorRGBA.DarkGray);
@@ -119,8 +119,22 @@ public class HUD extends Updatable
             objText.setText("YOU WON");
             Main.game.playerHandler.levelUp();
         }
-        objText.setLocalTranslation(30, healthText.getLineHeight() + 50, 0);
+        objText.setLocalTranslation(
+                Main.game.getWidth() - objText.getLineWidth() - 130, 
+                objText.getLineHeight() + 20, 0);
         Main.game.getGuiNode().attachChild(objText);
+
+        //Objectives
+        BitmapText objTitle = new BitmapText(Main.game.getFont(), false);
+        objTitle.setSize(Main.game.getFont().getCharSet().getRenderedSize() * 1.3f);
+        objTitle.setColor(ColorRGBA.DarkGray);
+        objTitle.setText("Objectives");
+        objTitle.setLocalTranslation(
+                Main.game.getWidth() - objTitle.getLineWidth() - 130, 
+                objTitle.getLineHeight() + objText.getLineHeight() + 20, 0);
+        Main.game.getGuiNode().attachChild(objTitle);
+        
+        //TOAST
         
         if(toastTimer > 0)
         {
