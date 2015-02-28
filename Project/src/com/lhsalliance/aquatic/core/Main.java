@@ -53,26 +53,27 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
- * test
- * @author normenhansen
+ * The root class. Includes initialization, game state, input handling,
+ * and other essentials.
+ * 
+ * @author normenhansen & Will
  */
 public class Main extends SimpleApplication implements AnimEventListener, ScreenController {
 
-    public static Main game;
+    public static Main game; //Instance of the game for use in other classes
     
-    public Animal player;
-    public HandlerPlayer playerHandler = new HandlerPlayer();
+    public Animal player; //The player
+    public HandlerPlayer playerHandler = new HandlerPlayer(); //Handler for the player
     
-    public HUD hud = new HUD();
+    public HUD hud = new HUD(); //Handler for the heads up display
     
-    public static int worldRadius = 500;
+    public static int worldRadius = 500; //Radius of the world generated
     
-     //define age control bools
+    //State variables for the state of the game
     public boolean mate = false;
     public Model heart;
     public static boolean hide = false;
     public boolean tutorial = false;
-    
     public boolean isRunning=true;
     public boolean isRight=false;
     public boolean isLeft=false;
@@ -83,20 +84,28 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
     public boolean isLoaded = false;
     public boolean isStarted = false;
     
+    //Animation handlers
     private AnimChannel channel;
     private AnimControl control;
     
+    //The biome and seed for world gen
     public long seed = 1209345223;
     public Biome biome = BiomeRegistry.RIEF;
     
+    //More handlers for the view
     public CameraNode camNode;
     public Node movementNode = new Node();
     public ViewPort bgvp;
     public Picture bgpic;
     public BitmapText loadText;
     
+    //Ticks count for use in timing
     public int ticks = 0;
     
+    /**
+     * Called when the app starts
+     * @param args arguments given to the application
+     */
     public static void main(String[] args) {
         Main app = new Main();
         AppSettings cfg = new AppSettings(true);
@@ -123,6 +132,10 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         game = app;
     }
 
+    /**
+     * Called duting app initializer. First thing to be called when the game
+     * is launched.
+     */
     @Override
     public void simpleInitApp() {
         AnimalRegistry.addAnimal(new Animal("Clownfish", 
@@ -164,6 +177,10 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         flyCam.setEnabled(true);
     }
 
+    /**
+     * Called on every frame to update things.
+     * @param tpf ticks per frame
+     */
     @Override
     public void simpleUpdate(float tpf) {
         if (tutorial && isLoading)
@@ -341,9 +358,13 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
       // unused
     }
     
+    //State variables for the various screens
     public NiftyJmeDisplay niftyDisplay;
     public Nifty nifty;
     
+    /**
+     * Called on to start up the main menu screen
+     */
     public void menuMain()
     {
         flyCam.setEnabled(false);
@@ -400,10 +421,9 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
-     * Button Functions
+    /**
+     * Called on to load the game when the player presses start (after the menus)
      */
-    
     public void loadGame()
     {
         if (!isLoaded)
@@ -440,6 +460,10 @@ public class Main extends SimpleApplication implements AnimEventListener, Screen
         }
     }
     
+    /**
+     * Called on to initialize the game processes after everything is loaded
+     * and the player presses space to continue
+     */
     public void startGame()
     {
         //Unload main menu

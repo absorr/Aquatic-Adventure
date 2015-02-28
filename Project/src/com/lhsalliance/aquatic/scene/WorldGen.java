@@ -17,11 +17,14 @@ import com.lhsalliance.aquatic.entities.Model;
 import java.util.Random;
 
 /**
- *
+ * Handler for populating the world with various objects
  * @author Will
  */
 public class WorldGen 
 {
+    /**
+     * Populates the world with various animals, plants, etc.
+     */
     public static void generate()
     {
         if ("Rief".equals(Main.game.biome.displayName))

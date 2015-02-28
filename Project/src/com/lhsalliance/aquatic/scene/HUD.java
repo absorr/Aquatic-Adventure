@@ -18,18 +18,23 @@ import com.lhsalliance.aquatic.core.Main;
 import com.lhsalliance.aquatic.entities.Updatable;
 
 /**
- * Heads Up Display (HUD)
+ * Handler for the Heads Up Display (HUD)
  * @author Will
  */
 public class HUD extends Updatable
 {
     public enum ToastType{INFO, WARNING, OTHER}
     
+    //Various variables used to create a toast notification with
     public static int toastTimer = 0;
     public static ToastType toastType = ToastType.OTHER;
     public static String toastText = "";
     public static String toastSub = "";
     
+    /**
+     * Called every frame in order to refresh the HUD
+     * @param tpf 
+     */
     @Override
     public void onUpdate(float tpf)
     {
